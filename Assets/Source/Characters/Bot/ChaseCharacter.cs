@@ -1,0 +1,1 @@
+public class ChaseCharacter : ChaseObject<Character, SharedCharacter> { }
