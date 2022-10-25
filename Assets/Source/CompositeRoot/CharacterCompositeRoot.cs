@@ -4,12 +4,24 @@ namespace CompositeRoot
 {
     public class CharacterCompositeRoot : CompositeRoot
     {
+        [SerializeField] private Config _config;
         [SerializeField] private CharacterMovement _movement;
-        [SerializeField] private Transform _lookTarget;
+        [SerializeField] private Health _health;
+        [SerializeField] private HealthView _healthView;
 
         public override void Compose()
         {
-            //_movement.SetTarget(_lookTarget);
+            _health.Init(_config.PlayerHealth, _config.PlayerHealth);
+        }
+
+        private void OnEnable()
+        {
+            _health.Changed += _healthView.Render;
+        }
+
+        private void OnDisable()
+        {
+            _health.Changed -= _healthView.Render;
         }
     }
 }

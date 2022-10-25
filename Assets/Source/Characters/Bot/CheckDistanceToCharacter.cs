@@ -1,0 +1,1 @@
+public class CheckDistanceToCharacter : CheckDistanceToObject<Character, SharedCharacter> { }
