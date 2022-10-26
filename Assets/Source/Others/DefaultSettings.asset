@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: DefaultSettings
   m_EditorClassIdentifier: 
   <PlayerHealth>k__BackingField: 100
+  <BotHealth>k__BackingField: 1

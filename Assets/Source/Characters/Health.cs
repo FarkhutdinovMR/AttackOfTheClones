@@ -9,9 +9,9 @@ public class Health : MonoBehaviour
     public event Action<int, int> Changed;
     public event Action Died;
 
-    public void Init(int startValue, int maxValue)
+    public void Init(int maxValue)
     {
-        _value = startValue;
+        _value = maxValue;
         _maxValue = maxValue;
     }
 
@@ -31,5 +31,6 @@ public class Health : MonoBehaviour
     private void Die()
     {
         Died?.Invoke();
+        gameObject.SetActive(false);
     }
 }

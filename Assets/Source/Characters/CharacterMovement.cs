@@ -6,12 +6,13 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private MonoBehaviour _inputSourceBehaviour;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
+    [SerializeField] private GetNearbyBot _nearbyBot;
 
     private ICharacterInputSource _inputSource => (ICharacterInputSource)_inputSourceBehaviour;
-    private CharacterController characterController;
+    private CharacterController _characterController;
     private Transform _lookTarget;
 
-    public float CurrentSpeed => characterController.velocity.magnitude;
+    public float CurrentSpeed => _characterController.velocity.magnitude;
 
     private void OnValidate()
     {
@@ -24,7 +25,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        _characterController = GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -33,24 +34,19 @@ public class CharacterMovement : MonoBehaviour
         LookAt();
     }
 
-    public void SetTarget(Transform target)
-    {
-        _lookTarget = target;
-    }
-
     private void Move(Vector2 delta)
     {
         var direction = new Vector3(delta.x, 0f, delta.y);
         direction *= _moveSpeed;
-        characterController.SimpleMove(direction);
+        _characterController.SimpleMove(direction);
     }
 
     private void LookAt()
     {
         Vector3 direction;
 
-        if (_lookTarget != null)
-            direction = _lookTarget.position - transform.position;
+        if (_nearbyBot != null && _nearbyBot.NearbyObject != null)
+            direction = _nearbyBot.NearbyObject.transform.position - transform.position;
         else
             direction = new Vector3(_inputSource.MovementInput.x, 0f, _inputSource.MovementInput.y);
 

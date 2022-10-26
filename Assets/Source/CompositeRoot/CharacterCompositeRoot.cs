@@ -11,7 +11,7 @@ namespace CompositeRoot
 
         public override void Compose()
         {
-            _health.Init(_config.PlayerHealth, _config.PlayerHealth);
+            _health.Init( _config.PlayerHealth);
         }
 
         private void OnEnable()

@@ -4,4 +4,5 @@ using UnityEngine;
 public class Config : ScriptableObject
 {
     [field: SerializeField] public int PlayerHealth { get; private set; }
+    [field: SerializeField] public int BotHealth { get; private set; }
 }
