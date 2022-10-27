@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5082677c5f5739b4f954bb103960ddd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interval: 2
-  <Damage>k__BackingField: 5
-  <Radius>k__BackingField: 2
+  <States>k__BackingField:
+  - {fileID: 11400000, guid: e41dd89d8b4d844429c2592e5deead32, type: 2}
+  - {fileID: 11400000, guid: 425a3157e42299f48ac21584ac3895e6, type: 2}
+  - {fileID: 11400000, guid: 7780f1f0563d17348aa840105085e6c6, type: 2}
   _fireballTemplate: {fileID: 2013087991896148216, guid: d7df6101a73d22d4fabced10378cd9d1, type: 3}

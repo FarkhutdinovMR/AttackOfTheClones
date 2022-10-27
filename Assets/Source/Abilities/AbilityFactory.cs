@@ -1,17 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityFactory : MonoBehaviour
 {
-    [SerializeField] private Ability[] _abilities;
+    [SerializeField] private List<State> _baseStates;
+    [SerializeField] private Ability[] _abilitiesTemplate;
     [SerializeField] private GetNearbyBot _nearbyBot;
-    [SerializeField] private Transform _startPoint;
 
-    private void Start()
+    private List<Ability> _abilities = new();
+
+    public IEnumerable<State> BaseStates => _baseStates;
+    public IEnumerable<Ability> Abilities => _abilities;
+
+    private void Awake()
     {
-        foreach (Ability ability in _abilities)
+        foreach (Ability ability in _abilitiesTemplate)
         {
             Ability newAbility = Instantiate(ability, transform);
-            newAbility.Init(_nearbyBot, _startPoint);
+            newAbility.Init(_baseStates, _nearbyBot);
+            _abilities.Add(newAbility);
         }
     }
 }

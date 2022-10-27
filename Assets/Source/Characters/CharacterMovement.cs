@@ -14,6 +14,8 @@ public class CharacterMovement : MonoBehaviour
 
     public float CurrentSpeed => _characterController.velocity.magnitude;
 
+    public Vector3 Direction => _characterController.velocity.normalized;
+
     private void OnValidate()
     {
         if (_inputSourceBehaviour && !(_inputSourceBehaviour is ICharacterInputSource))

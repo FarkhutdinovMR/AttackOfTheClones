@@ -4,10 +4,10 @@ public class FireballAbility : Ability
 {
     [SerializeField] private Fireball _fireballTemplate;
 
-    protected override void Attack(Transform target) 
+    public override void Use()
     {
-        Vector3 direction = target.position - transform.position;
-        Fireball newFireball = Instantiate(_fireballTemplate, StartPoint.position, Quaternion.LookRotation(direction));
-        newFireball.Init(Radius, Damage);
+        Vector3 direction = Target.position - transform.position;
+        Fireball newFireball = Instantiate(_fireballTemplate, transform.position + Vector3.up, Quaternion.LookRotation(direction));
+        newFireball.Init(AttackRadius, AttackDamage);
     }
 }

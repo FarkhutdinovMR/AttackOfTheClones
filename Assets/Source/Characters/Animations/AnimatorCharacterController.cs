@@ -2,6 +2,7 @@ public static class AnimatorCharacterController
 {
     public static class Params
     {
-        public const string Speed = nameof(Speed);
+        public const string Right = nameof(Right);
+        public const string Forward = nameof(Forward);
     }
 }

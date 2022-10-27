@@ -1,36 +1,38 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Ability : MonoBehaviour
 {
-    [SerializeField] private float _interval;
+    [field: SerializeField] public List<State> States { get; private set; }
 
-    [field: SerializeField] protected int Damage { get; private set; }
-    [field:SerializeField] protected float Radius { get; private set; }
-
+    private List<State> _baseStates;
     private GetNearbyBot _nearbyBot;
 
-    protected Transform StartPoint { get; private set; }
+    public float AttackRadius => States.GetState<AttackRadiusState>().Value + _baseStates.GetState<AttackRadiusState>().Value;
+    public int AttackDamage => (int)(States.GetState<AttackDamageState>().Value + _baseStates.GetState<AttackDamageState>().Value);
+    public float AttackInterval => States.GetState<AttackIntervalState>().Value + _baseStates.GetState<AttackIntervalState>().Value;
+    public Transform Target => _nearbyBot.NearbyObject.transform;
 
-    public void Init(GetNearbyBot getNearby, Transform startPoint)
+    public void Init(List<State> baseStates, GetNearbyBot getNearby)
     {
+        _baseStates = baseStates;
         _nearbyBot = getNearby;
-        StartPoint = startPoint;
         StartCoroutine(Play());
     }
 
     IEnumerator Play()
     {
-        while(true)
+        while (true)
         {
-            yield return new WaitForSeconds(_interval);
+            yield return new WaitForSeconds(AttackInterval);
 
             if (_nearbyBot.NearbyObject == null)
                 continue;
 
-            Attack(_nearbyBot.NearbyObject.transform);
+            Use();
         }
     }
 
-    protected abstract void Attack(Transform target);
+    public abstract void Use();
 }
