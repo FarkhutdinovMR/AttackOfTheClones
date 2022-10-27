@@ -11,8 +11,8 @@ public class AttackCharacter : Action
     {
         float distance = Vector3.Distance(transform.position, Character.Value.transform.position);
 
-        if (distance <= Distance && Character.Value.TryGetComponent(out Health health))
-            health.TakeDamage(Damage);
+        if (distance <= Distance)
+            Character.Value.Health.TakeDamage(Damage);
 
         return TaskStatus.Success;
     }

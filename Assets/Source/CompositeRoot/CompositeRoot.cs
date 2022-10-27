@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CompositeRoot
+public abstract class CompositeRoot : MonoBehaviour
 {
-    public abstract class CompositeRoot : MonoBehaviour
-    {
-        public abstract void Compose();
-    }
+    public abstract void Compose();
 }

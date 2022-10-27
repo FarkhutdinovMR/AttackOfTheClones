@@ -1,4 +1,3 @@
-using CompositeRoot;
 using UnityEngine;
 
 public class Reward : MonoBehaviour
@@ -21,7 +20,7 @@ public class Reward : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out CharacterCompositeRoot character))
+        if (other.TryGetComponent(out Character character))
         {
             character.CharacterLevel.AddExp(_reward);
             Destroy(gameObject);

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: DefaultSettings
   m_EditorClassIdentifier: 
   <CharacterHealth>k__BackingField: 100
-  <CharacterLevelUp>k__BackingField: 10
+  <CharacterLevelUp>k__BackingField: 20
   <BotHealth>k__BackingField: 1
+  <RewardForBot>k__BackingField: 1

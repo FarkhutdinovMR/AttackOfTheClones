@@ -1,23 +1,27 @@
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour, ICharacterInputSource
+public class PlayerInput : ICharacterInputSource
 {
     private CharacterInput _input;
 
-    public Vector2 MovementInput { get; private set; }
-
-    private void OnEnable()
+    public PlayerInput()
     {
         _input = new CharacterInput();
+    }
+
+    public Vector2 MovementInput { get; private set; }
+
+    public void Enable()
+    {
         _input.Enable();
     }
 
-    private void OnDisable()
+    public void Disable()
     {
         _input.Disable();
     }
 
-    private void Update()
+    public void Update()
     {
         MovementInput = _input.Movement.Move.ReadValue<Vector2>();
         MovementInput.Normalize();

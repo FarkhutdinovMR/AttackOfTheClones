@@ -1,32 +1,78 @@
+using System.Collections;
 using UnityEngine;
 
-namespace CompositeRoot
+public class LevelCompositeRoot : MonoBehaviour
 {
-    public class LevelCompositeRoot : CompositeRoot
+    [SerializeField] private BotSpawner _botSpawner;
+    [SerializeField] private ProgressBarView _levelProgressView;
+    [SerializeField] private GameObject _winWindow;
+    [SerializeField] private GameObject _failWindow;
+    [SerializeField] private Character _character;
+    [SerializeField] private float _waitTimeBeforeEndGame;
+
+    private Counter _deathCounter;
+
+    private void Awake()
     {
-        [SerializeField] private ProgressBarView _levelProgressView;
-        [SerializeField] private BotSpawner _botSpawner;
+        _deathCounter = new Counter(_botSpawner.Amount);
+        _botSpawner.Init(_deathCounter);
+    }
 
-        private DeathCounter _deathCounter;
-        private LevelProgress _levelProgress;
+    private void OnEnable()
+    {
+        _deathCounter.Changed += OnDeathCounterChanged;
+        _deathCounter.Complited += OnDeathCounterComplited;
+        _character.Health.Died += OnCharacterDied;
+    }
 
-        public override void Compose()
-        {
-            _deathCounter = new DeathCounter();
-            _levelProgress = new LevelProgress(_botSpawner.Amount);
-            _botSpawner.Init(_deathCounter);
-        }
+    private void OnDisable()
+    {
+        _deathCounter.Changed -= OnDeathCounterChanged;
+        _deathCounter.Complited -= OnDeathCounterComplited;
+        _character.Health.Died -= OnCharacterDied;
+    }
 
-        private void OnEnable()
-        {
-            _deathCounter.Changed += _levelProgress.OnBotDead;
-            _levelProgress.Changed += _levelProgressView.Render;
-        }
+    private void OnDeathCounterChanged(int count)
+    {
+        _levelProgressView.Render((float)count / _botSpawner.Amount);
+    }
 
-        private void OnDisable()
-        {
-            _deathCounter.Changed -= _levelProgress.OnBotDead;
-            _levelProgress.Changed -= _levelProgressView.Render;
-        }
+    private void OnDeathCounterComplited()
+    {
+        CompleteLevel();
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+    }
+
+    private void CompleteLevel()
+    {
+        StartCoroutine(OpenWinWindow());
+    }
+
+    private void OnCharacterDied()
+    {
+        StartCoroutine(OpenFailWindow());
+    }
+
+    private IEnumerator OpenWinWindow()
+    {
+        yield return new WaitForSeconds(_waitTimeBeforeEndGame);
+        Pause();
+        _winWindow.SetActive(true);
+    }
+
+    private IEnumerator OpenFailWindow()
+    {
+        yield return new WaitForSeconds(_waitTimeBeforeEndGame);
+        Pause();
+        _failWindow.SetActive(true);
     }
 }

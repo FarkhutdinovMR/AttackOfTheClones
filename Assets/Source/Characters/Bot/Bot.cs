@@ -6,18 +6,23 @@ public class Bot : MonoBehaviour
     [SerializeField] private Config _config;
     [SerializeField] private BehaviorTree _behaviorTree;
     [SerializeField] private Reward _rewardTemplate;
+    [SerializeField] private CharacterMovement _characterMovement;
+    [SerializeField] private BotInput _botInput;
 
-    private DeathCounter _deathCounter;
+    private Counter _deathCounter;
     private RewardSpawner _rewardSpawner;
 
     public Health Health { get; private set; }
 
-    public void Init(Character character, Transform rewardTarget, DeathCounter deathCounter)
+    private const string PlayerShared = "_player";
+
+    public void Init(Character character, Counter deathCounter)
     {
         Health = new Health(_config.BotHealth);
-        _deathCounter = deathCounter;
-        _behaviorTree.SetVariable("_player", (SharedCharacter)character);
+        _characterMovement.Init(_botInput);
+        _behaviorTree.SetVariable(PlayerShared, (SharedCharacter)character);
         _rewardSpawner = new RewardSpawner(_config.RewardForBot, character.transform, _rewardTemplate);
+        _deathCounter = deathCounter;
         enabled = true;
     }
 

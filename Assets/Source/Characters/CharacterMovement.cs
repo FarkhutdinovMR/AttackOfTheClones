@@ -3,28 +3,26 @@ using UnityEngine;
 [RequireComponent (typeof(CharacterController))]
 public class CharacterMovement : MonoBehaviour
 {
-    [SerializeField] private MonoBehaviour _inputSourceBehaviour;
     [SerializeField] private MonoBehaviour _targetSourceBehaviour;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
 
-    private ICharacterInputSource _inputSource => (ICharacterInputSource)_inputSourceBehaviour;
-    private ITargetSource _targetSource => (ITargetSource)_targetSourceBehaviour;
+    private ICharacterInputSource _inputSource;
     private CharacterController _characterController;
     private Transform _lookTarget;
 
+    private ITargetSource _targetSource => (ITargetSource)_targetSourceBehaviour;
     public float CurrentSpeed => _characterController.velocity.magnitude;
-
     public Vector3 Direction => _characterController.velocity.normalized;
+
+    public void Init(ICharacterInputSource inputSource)
+    {
+        _inputSource = inputSource;
+        enabled = true;
+    }
 
     private void OnValidate()
     {
-        if (_inputSourceBehaviour && !(_inputSourceBehaviour is ICharacterInputSource))
-        {
-            Debug.LogError(nameof(_inputSourceBehaviour) + " needs to implement " + nameof(ICharacterInputSource));
-            _inputSourceBehaviour = null;
-        }
-
         if (_targetSourceBehaviour && !(_targetSourceBehaviour is ITargetSource))
         {
             Debug.LogError(nameof(_targetSourceBehaviour) + " needs to implement " + nameof(ITargetSource));

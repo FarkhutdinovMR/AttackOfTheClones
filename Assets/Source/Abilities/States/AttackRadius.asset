@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7838a0fe7915f4bb9895469fab95ac, type: 3}
   m_Name: AttackRadius
   m_EditorClassIdentifier: 
-  <DefaultValue>k__BackingField: 1
-  <Level>k__BackingField: 2
+  <DefaultValue>k__BackingField: 0.5
+  <Level>k__BackingField: 3
   <UpgradeMultiplier>k__BackingField: 0.1
   <Name>k__BackingField: Attack Radius
   <Type>k__BackingField: Attack Radius

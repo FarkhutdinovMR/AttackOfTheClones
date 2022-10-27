@@ -2,17 +2,17 @@ using System;
 
 public class Health
 {
+    private readonly int _maxValue;
     private int _value;
-    private int _maxValue;
-
-    public event Action<int, int> Changed;
-    public event Action Died;
 
     public Health(int maxValue)
     {
         _value = maxValue;
         _maxValue = maxValue;
     }
+
+    public event Action<int, int> Changed;
+    public event Action Died;
 
     public void TakeDamage(int value)
     {

@@ -8,8 +8,6 @@ public class CharacterLevel
     private uint _exp;
     private uint _value;
 
-    public event Action<uint> LevelChanged;
-
     public CharacterLevel(uint exp, uint value, uint levelUp)
     {
         _levelUp = _startLevelUp;
@@ -17,6 +15,8 @@ public class CharacterLevel
         _value = value;
         _levelUp = levelUp;
     }
+
+    public event Action<uint> LevelChanged;
 
     public void AddExp(uint value)
     {
