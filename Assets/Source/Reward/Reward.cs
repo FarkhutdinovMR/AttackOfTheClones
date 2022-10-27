@@ -1,3 +1,4 @@
+using CompositeRoot;
 using UnityEngine;
 
 public class Reward : MonoBehaviour
@@ -15,14 +16,14 @@ public class Reward : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _target.position + Vector3.up, _speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out CharacterLevel character))
+        if (other.TryGetComponent(out CharacterCompositeRoot character))
         {
-            character.AddExp(_reward);
+            character.CharacterLevel.AddExp(_reward);
             Destroy(gameObject);
         }
     }

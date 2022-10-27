@@ -1,23 +1,18 @@
 using System;
-using UnityEngine;
 
-public class CharacterLevel : MonoBehaviour
+public class CharacterLevel
 {
-    [SerializeField] private uint _startLevelUp = 10;
+    private readonly uint _startLevelUp;
 
-    private uint _value = 1;
-    private uint _exp;
     private uint _levelUp;
+    private uint _exp;
+    private uint _value;
 
     public event Action<uint> LevelChanged;
 
-    private void Awake()
+    public CharacterLevel(uint exp, uint value, uint levelUp)
     {
         _levelUp = _startLevelUp;
-    }
-
-    public void Init(uint exp, uint value, uint levelUp)
-    {
         _exp = exp;
         _value = value;
         _levelUp = levelUp;

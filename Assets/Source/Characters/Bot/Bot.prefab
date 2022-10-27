@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: 1895600296054462380}
   - component: {fileID: 1895600296054462384}
   - component: {fileID: 1895600296054462387}
-  - component: {fileID: 1895600296054462391}
-  - component: {fileID: 1895600296054462388}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -46,15 +44,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895600296054462383}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cc9f78e7bcc09c428dd5c7a31b1c0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: a080a8f1532645340ab55e0a12af73ca, type: 2}
-  _health: {fileID: 1895600296054462391}
   _behaviorTree: {fileID: 1895600296054462384}
-  _rewardSpawner: {fileID: 1895600296054462388}
+  _rewardTemplate: {fileID: 8538683143084488939, guid: 5c1590f91dd063f48b5ccfd2fae4d560, type: 3}
 --- !u!114 &1895600296054462381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,9 +65,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputSourceBehaviour: {fileID: 1895600296054462387}
+  _targetSourceBehaviour: {fileID: 0}
   _moveSpeed: 3
   _rotateSpeed: 5
-  _nearbyBot: {fileID: 0}
 --- !u!143 &1895600296054462380
 CharacterController:
   m_ObjectHideFlags: 0
@@ -151,32 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f05712cdce9d439225743e3dbb521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1895600296054462391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1895600296054462383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d05f5dcb8819c5b44ac910895b629789, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1895600296054462388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1895600296054462383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41672eb9fbeff174ebeaf592e9ea9216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _value: 1
-  _rewardTemplate: {fileID: 8538683143084488939, guid: 5c1590f91dd063f48b5ccfd2fae4d560, type: 3}
 --- !u!1001 &1895600298015640464
 PrefabInstance:
   m_ObjectHideFlags: 0

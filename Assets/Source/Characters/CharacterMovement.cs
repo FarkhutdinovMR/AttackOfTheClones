@@ -4,11 +4,12 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private MonoBehaviour _inputSourceBehaviour;
+    [SerializeField] private MonoBehaviour _targetSourceBehaviour;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
-    [SerializeField] private GetNearbyBot _nearbyBot;
 
     private ICharacterInputSource _inputSource => (ICharacterInputSource)_inputSourceBehaviour;
+    private ITargetSource _targetSource => (ITargetSource)_targetSourceBehaviour;
     private CharacterController _characterController;
     private Transform _lookTarget;
 
@@ -22,6 +23,12 @@ public class CharacterMovement : MonoBehaviour
         {
             Debug.LogError(nameof(_inputSourceBehaviour) + " needs to implement " + nameof(ICharacterInputSource));
             _inputSourceBehaviour = null;
+        }
+
+        if (_targetSourceBehaviour && !(_targetSourceBehaviour is ITargetSource))
+        {
+            Debug.LogError(nameof(_targetSourceBehaviour) + " needs to implement " + nameof(ITargetSource));
+            _targetSourceBehaviour = null;
         }
     }
 
@@ -47,8 +54,8 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector3 direction;
 
-        if (_nearbyBot != null && _nearbyBot.NearbyObject != null)
-            direction = _nearbyBot.NearbyObject.transform.position - transform.position;
+        if (_targetSource != null && _targetSource.Target != null)
+            direction = _targetSource.Target.position - transform.position;
         else
             direction = new Vector3(_inputSource.MovementInput.x, 0f, _inputSource.MovementInput.y);
 

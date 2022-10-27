@@ -1,37 +1,22 @@
+using System;
 using UnityEngine;
 
-[RequireComponent (typeof(Health))]
-public class RewardSpawner : MonoBehaviour
+public class RewardSpawner
 {
-    [SerializeField] private uint _value;
-    [SerializeField] private Reward _rewardTemplate;
+    private readonly uint _reward;
+    private readonly Reward _rewardTemplate;
+    private readonly Transform _targetSource;    
 
-    private Transform _character;    
-    private Health _health;
-
-    public void Init(Transform character)
+    public RewardSpawner(uint reward, Transform targetSource, Reward rewardTemplate)
     {
-        _character = character;
+        _reward = reward;
+        _targetSource = targetSource ?? throw new ArgumentNullException(nameof(targetSource));
+        _rewardTemplate = rewardTemplate ?? throw new ArgumentNullException(nameof(rewardTemplate));
     }
 
-    private void Awake()
+    public void Spawn(Vector3 position, Quaternion rotation)
     {
-        _health = GetComponent<Health>();
-    }
-
-    private void OnEnable()
-    {
-        _health.Died += OnBotDied;
-    }
-
-    private void OnDisable()
-    {
-        _health.Died -= OnBotDied;
-    }
-
-    private void OnBotDied()
-    {
-        Reward newReward = Instantiate(_rewardTemplate, transform.position, transform.rotation);
-        newReward.Init(_value, _character.transform);
+        Reward newReward = MonoBehaviour.Instantiate(_rewardTemplate, position, rotation);
+        newReward.Init(_reward, _targetSource);
     }
 }

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BotSpawner : MonoBehaviour
 {
+    [field: SerializeField] public int Amount { get; private set; }
+
     [SerializeField] private Bot _bot;
     [SerializeField] private uint _waveAmount;
     [SerializeField] private uint _amountBotInWave;
@@ -12,24 +14,34 @@ public class BotSpawner : MonoBehaviour
     [SerializeField] private Character _character;
     [SerializeField] private Transform _rewardTarget;
 
+    private DeathCounter _deathCounter;
     private uint _waveSpawned;
+    private int _currentAmount;
+
+    public void Init(DeathCounter deathCounter)
+    {
+        _deathCounter = deathCounter;
+        enabled = true;
+    }
 
     private void Start()
     {
-        StartCoroutine(Spaw());
+        StartCoroutine(Spawn());
     }
 
-    private IEnumerator Spaw()
+    private IEnumerator Spawn()
     {
         while (_waveSpawned < _waveAmount)
         {
-            SpawnRowsWave();
+            if (SpawnRowsWave())
+                yield break;
+
             _waveSpawned++;
             yield return new WaitForSeconds(_interval);
         }
     }
 
-    private void SpawnRowsWave()
+    private bool SpawnRowsWave()
     {
         uint row = (uint)Mathf.Sqrt(_amountBotInWave);
         Vector2 spawnCenter = Random.insideUnitCircle.normalized;
@@ -42,8 +54,14 @@ public class BotSpawner : MonoBehaviour
             {
                 var spawnPosition = new Vector3(spawnCenter.x + _rowSpace * x, 0f, spawnCenter.y + _rowSpace * y);
                 Bot newBot = Instantiate(_bot, spawnPosition, Quaternion.identity, transform);
-                newBot.Init(_character, _rewardTarget);
+                newBot.Init(_character, _rewardTarget, _deathCounter);
+
+                _currentAmount++;
+                if (_currentAmount >= Amount)
+                    return true;
             }
         }
+
+        return false;
     }
 }

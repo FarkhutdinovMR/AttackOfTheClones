@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7838a0fe7915f4bb9895469fab95ac, type: 3}
   m_Name: FireballAttackRadius
   m_EditorClassIdentifier: 
-  <DefaultValue>k__BackingField: 1
+  <DefaultValue>k__BackingField: 2
   <Level>k__BackingField: 1
   <UpgradeMultiplier>k__BackingField: 0.2
   <Name>k__BackingField: Attack Radius

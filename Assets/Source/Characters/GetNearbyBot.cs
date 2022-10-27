@@ -1,1 +1,6 @@
-public class GetNearbyBot : GetNearbyObject<Bot> { }
+using UnityEngine;
+
+public class GetNearbyBot : GetNearbyObject<Bot>, ITargetSource
+{
+    public Transform Target => NearbyObject != null ? NearbyObject.transform : null;
+}

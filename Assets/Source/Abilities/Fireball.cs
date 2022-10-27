@@ -29,8 +29,7 @@ public class Fireball : MonoBehaviour
         IEnumerable bots = getObjectsInRadius.Get();
 
         foreach (Bot bot in bots)
-            if (bot.TryGetComponent(out Health health))
-                health.TakeDamage(_damage);
+            bot.Health.TakeDamage(_damage);
 
         Instantiate(_hitFX, transform.position, Quaternion.identity);
         Destroy(gameObject);

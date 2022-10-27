@@ -6,27 +6,29 @@ namespace CompositeRoot
     {
         [SerializeField] private Config _config;
         [SerializeField] private CharacterMovement _movement;
-        [SerializeField] private Health _health;
         [SerializeField] private HealthView _healthView;
-        [SerializeField] private CharacterLevel _characterLevel;
-        [SerializeField] private AbilityUpgrade _abilityUpgrade;
         [SerializeField] private TextPresenter _levelPresenter;
+        [SerializeField] private AbilityUpgrade _abilityUpgrade;
+
+        private Health _health;
+        public CharacterLevel CharacterLevel { get; private set; }
 
         public override void Compose()
         {
-            _health.Init( _config.PlayerHealth);
+            _health = new Health(_config.CharacterHealth);
+            CharacterLevel = new CharacterLevel(0, 0, _config.CharacterLevelUp);
         }
 
         private void OnEnable()
         {
             _health.Changed += _healthView.Render;
-            _characterLevel.LevelChanged += OnCharacterLevelChanged;
+            CharacterLevel.LevelChanged += OnCharacterLevelChanged;
         }
 
         private void OnDisable()
         {
             _health.Changed -= _healthView.Render;
-            _characterLevel.LevelChanged -= OnCharacterLevelChanged;
+            CharacterLevel.LevelChanged -= OnCharacterLevelChanged;
         }
 
         private void OnCharacterLevelChanged(uint level)

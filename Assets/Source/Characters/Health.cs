@@ -1,7 +1,6 @@
 using System;
-using UnityEngine;
 
-public class Health : MonoBehaviour
+public class Health
 {
     private int _value;
     private int _maxValue;
@@ -9,7 +8,7 @@ public class Health : MonoBehaviour
     public event Action<int, int> Changed;
     public event Action Died;
 
-    public void Init(int maxValue)
+    public Health(int maxValue)
     {
         _value = maxValue;
         _maxValue = maxValue;
@@ -31,6 +30,5 @@ public class Health : MonoBehaviour
     private void Die()
     {
         Died?.Invoke();
-        gameObject.SetActive(false);
     }
 }
