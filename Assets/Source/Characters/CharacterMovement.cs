@@ -13,7 +13,7 @@ public class CharacterMovement : MonoBehaviour
 
     private ITargetSource _targetSource => (ITargetSource)_targetSourceBehaviour;
     public float CurrentSpeed => _characterController.velocity.magnitude;
-    public Vector3 Direction => _characterController.velocity.normalized;
+    public Vector3 Direction => _characterController.velocity;
 
     public void Init(ICharacterInputSource inputSource)
     {

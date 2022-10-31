@@ -1,50 +1,51 @@
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : CompositeRoot
 {
     [SerializeField] private Config _config;
     [SerializeField] private CharacterMovement _movement;
     [SerializeField] private HealthView _healthView;
-    [SerializeField] private TextPresenter _levelPresenter;
+    [SerializeField] private TextView _levelPresenter;
     [SerializeField] private AbilityUpgrade _abilityUpgrade;
     [SerializeField] private LevelCompositeRoot _levelComposite;
+    [SerializeField] private PlayerTouchInputView _playerTouchInputView;
 
-    private PlayerInput _playerInput;
-
+    public PlayerInput Input { get; private set; }
     public Health Health { get; private set; }
     public CharacterLevel CharacterLevel { get; private set; }
 
-    private void Awake()
+    public override void Compose()
     {
         Health = new Health(_config.CharacterHealth);
         CharacterLevel = new CharacterLevel(0, 0, _config.CharacterLevelUp);
-        _playerInput = new PlayerInput();
-        _movement.Init(_playerInput);
+        Input = new PlayerInput();
+        _playerTouchInputView.Init(Input);
+        _movement.Init(Input);
     }
 
     private void OnEnable()
     {
         Health.Changed += _healthView.Render;
         CharacterLevel.LevelChanged += OnCharacterLevelChanged;
-        _playerInput.Enable();
+        Input.Enable();
     }
 
     private void OnDisable()
     {
         Health.Changed -= _healthView.Render;
         CharacterLevel.LevelChanged -= OnCharacterLevelChanged;
-        _playerInput.Disable();
+        Input.Disable();
     }
 
     private void Update()
     {
-        _playerInput.Update();
+        Input.Update();
     }
 
     private void OnCharacterLevelChanged(uint level)
     {
         _levelComposite.Pause();
         _abilityUpgrade.OpenUpgradeWindow(_levelComposite.Resume);
-        _levelPresenter.Render(level);
+        _levelPresenter.Render((int)level);
     }
 }

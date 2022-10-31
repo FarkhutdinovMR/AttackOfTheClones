@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: AttackInterval
   m_EditorClassIdentifier: 
   <DefaultValue>k__BackingField: 1
-  <Level>k__BackingField: 7
   <UpgradeMultiplier>k__BackingField: -0.05
   <Name>k__BackingField: Attack Interval
   <Type>k__BackingField: Attack Interval
-  <Icon>k__BackingField: {fileID: 21300000, guid: 413710b631bd5493ebbf1a29b2d82eb3, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 46d84f4d841ad44fea3559615f6ed9d2, type: 3}

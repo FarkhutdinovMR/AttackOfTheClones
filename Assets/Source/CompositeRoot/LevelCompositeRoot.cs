@@ -1,40 +1,47 @@
 using System.Collections;
 using UnityEngine;
 
-public class LevelCompositeRoot : MonoBehaviour
+public class LevelCompositeRoot : CompositeRoot
 {
-    [SerializeField] private BotSpawner _botSpawner;
+    [SerializeField] private WaveSpawner _spawner;
     [SerializeField] private ProgressBarView _levelProgressView;
-    [SerializeField] private GameObject _winWindow;
-    [SerializeField] private GameObject _failWindow;
+    [SerializeField] private TextView _currentLevelView;
+    [SerializeField] private WinWndow _winWindow;
+    [SerializeField] private FailWindow _failWindow;
     [SerializeField] private Character _character;
     [SerializeField] private float _waitTimeBeforeEndGame;
+    [SerializeField] private BotSpawner _botSpawner;
+    [SerializeField] private SceneLoader _sceneLoader;
 
-    private Counter _deathCounter;
+    public Counter DeathCounter { get; private set; }
 
-    private void Awake()
+    public override void Compose()
     {
-        _deathCounter = new Counter(_botSpawner.Amount);
-        _botSpawner.Init(_deathCounter);
+        DeathCounter = new Counter(_spawner.Amount);
     }
 
     private void OnEnable()
     {
-        _deathCounter.Changed += OnDeathCounterChanged;
-        _deathCounter.Complited += OnDeathCounterComplited;
+        DeathCounter.Changed += OnDeathCounterChanged;
+        DeathCounter.Complited += OnDeathCounterComplited;
         _character.Health.Died += OnCharacterDied;
     }
 
     private void OnDisable()
     {
-        _deathCounter.Changed -= OnDeathCounterChanged;
-        _deathCounter.Complited -= OnDeathCounterComplited;
+        DeathCounter.Changed -= OnDeathCounterChanged;
+        DeathCounter.Complited -= OnDeathCounterComplited;
         _character.Health.Died -= OnCharacterDied;
+    }
+
+    private void Start()
+    {
+        _currentLevelView.Render(_sceneLoader.CurrentSceneIndex);
     }
 
     private void OnDeathCounterChanged(int count)
     {
-        _levelProgressView.Render((float)count / _botSpawner.Amount);
+        _levelProgressView.Render((float)count / _spawner.Amount);
     }
 
     private void OnDeathCounterComplited()
@@ -45,11 +52,13 @@ public class LevelCompositeRoot : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0f;
+        _character.Input.Disable();
     }
 
     public void Resume()
     {
         Time.timeScale = 1f;
+        _character.Input.Enable();
     }
 
     private void CompleteLevel()
@@ -66,13 +75,13 @@ public class LevelCompositeRoot : MonoBehaviour
     {
         yield return new WaitForSeconds(_waitTimeBeforeEndGame);
         Pause();
-        _winWindow.SetActive(true);
+        _winWindow.Open(Resume);
     }
 
     private IEnumerator OpenFailWindow()
     {
         yield return new WaitForSeconds(_waitTimeBeforeEndGame);
         Pause();
-        _failWindow.SetActive(true);
+        _failWindow.Open(Resume);
     }
 }

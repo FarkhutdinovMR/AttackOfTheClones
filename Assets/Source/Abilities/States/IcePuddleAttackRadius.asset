@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce7838a0fe7915f4bb9895469fab95ac, type: 3}
+  m_Name: IcePuddleAttackRadius
+  m_EditorClassIdentifier: 
+  <DefaultValue>k__BackingField: 6
+  <UpgradeMultiplier>k__BackingField: 0.5
+  <Name>k__BackingField: Attack Radius
+  <Type>k__BackingField: Ice Puddle
+  <Icon>k__BackingField: {fileID: 21300000, guid: de629debbb984994daa432462e6cd525, type: 3}

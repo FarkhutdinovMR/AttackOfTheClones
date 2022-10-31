@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: AttackRadius
   m_EditorClassIdentifier: 
   <DefaultValue>k__BackingField: 0.5
-  <Level>k__BackingField: 3
   <UpgradeMultiplier>k__BackingField: 0.1
   <Name>k__BackingField: Attack Radius
   <Type>k__BackingField: Attack Radius
-  <Icon>k__BackingField: {fileID: 21300000, guid: 413710b631bd5493ebbf1a29b2d82eb3, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 1c74d1dcff866ee48a68842355840c90, type: 3}

@@ -1,23 +1,33 @@
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WinWndow : MonoBehaviour
 {
-    [SerializeField] private Button _nextButton;
+    [SerializeField] private YandexAd _yandexAd;
     [SerializeField] private SceneLoader _sceneLoader;
 
-    private void OnEnable()
+    private Action _onClose;
+
+    public void Open(Action onClose)
     {
-        _nextButton.onClick.AddListener(OnNextButtonClicked);
+        gameObject.SetActive(true);
+        _onClose = onClose;
     }
 
-    private void OnDisable()
+    public void OnNextLevelButtonClicked()
     {
-        _nextButton.onClick.RemoveListener(OnNextButtonClicked);
+        _yandexAd.ShowInterstitialAd(OnInterstitialAdEnd);
     }
 
-    private void OnNextButtonClicked()
+    private void OnInterstitialAdEnd()
     {
-        _sceneLoader.Restart();
+        Close();
+        _sceneLoader.LoadNext();
+    }
+
+    private void Close()
+    {
+        gameObject.SetActive(false);
+        _onClose?.Invoke();
     }
 }

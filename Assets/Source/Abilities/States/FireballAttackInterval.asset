@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: FireballAttackInterval
   m_EditorClassIdentifier: 
   <DefaultValue>k__BackingField: 1
-  <Level>k__BackingField: 4
   <UpgradeMultiplier>k__BackingField: -0.1
   <Name>k__BackingField: Attack Interval
   <Type>k__BackingField: Fire Ball
-  <Icon>k__BackingField: {fileID: 21300000, guid: 3c6f5b7a54bd84489ba7d655c5b7b812, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 2982efa463537a5418694bfddc718514, type: 3}

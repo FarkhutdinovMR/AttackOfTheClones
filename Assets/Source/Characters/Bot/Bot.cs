@@ -1,4 +1,5 @@
 using BehaviorDesigner.Runtime;
+using System;
 using UnityEngine;
 
 public class Bot : MonoBehaviour
@@ -8,6 +9,7 @@ public class Bot : MonoBehaviour
     [SerializeField] private Reward _rewardTemplate;
     [SerializeField] private CharacterMovement _characterMovement;
     [SerializeField] private BotInput _botInput;
+    [SerializeField] private ColorSwithcer _damageRender;
 
     private Counter _deathCounter;
     private RewardSpawner _rewardSpawner;
@@ -29,11 +31,13 @@ public class Bot : MonoBehaviour
     private void OnEnable()
     {
         Health.Died += OnDied;
+        Health.Changed += OnHealthChanged;
     }
 
     private void OnDisable()
     {
         Health.Died -= OnDied;
+        Health.Changed -= OnHealthChanged;
     }
 
     private void OnDied()
@@ -41,5 +45,10 @@ public class Bot : MonoBehaviour
         _rewardSpawner.Spawn(transform.position, transform.rotation);
         _deathCounter.Increase();
         Destroy(gameObject);
+    }
+
+    private void OnHealthChanged(int currentValue, int maxValue)
+    {
+        _damageRender.Switch();
     }
 }

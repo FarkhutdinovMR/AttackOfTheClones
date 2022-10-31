@@ -27,6 +27,12 @@ public class Health
         Changed?.Invoke(_value, _maxValue);
     }
 
+    public void Resurrect()
+    {
+        _value = _maxValue;
+        Changed?.Invoke(_value, _maxValue);
+    }
+
     private void Die()
     {
         Died?.Invoke();
