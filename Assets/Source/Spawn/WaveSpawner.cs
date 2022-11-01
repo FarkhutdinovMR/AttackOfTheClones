@@ -14,8 +14,6 @@ public class WaveSpawner : MonoBehaviour
     private int _currentCount;
     private Coroutine _spawnCoroutine;
 
-    public bool _isComplited => _currentCount >= Amount;
-
     public void Init(ISpawnWave spawnWave)
     {
         _spawnWave = spawnWave;
@@ -29,14 +27,13 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator SpawnWaves()
     {
-        while(_isComplited == false)
+        while(_currentCount < Amount)
         {
             for (int i = 0; i < _points.Length; i++)
             {
                 int waveSize = (int)_waveSizeInTime.Evaluate((float)_currentCount / Amount);
                 waveSize = Math.Clamp(waveSize, 0, Amount - _currentCount);
-                _spawnWave.Spawn(waveSize, _points[i].position);
-                _currentCount += waveSize;
+                _currentCount += _spawnWave.Spawn(waveSize, _points[i].position);
 
                 yield return new WaitForSeconds(_intervalBetweenPoints);
             }

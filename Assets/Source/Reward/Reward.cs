@@ -23,7 +23,7 @@ public class Reward : MonoBehaviour
         if (other.TryGetComponent(out Character character))
         {
             character.CharacterLevel.AddExp(_reward);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

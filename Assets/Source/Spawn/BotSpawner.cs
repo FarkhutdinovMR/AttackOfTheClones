@@ -3,22 +3,33 @@ using UnityEngine;
 
 public class BotSpawner : ISpawner
 {
-    private readonly Bot _template;
-    private readonly Character _character;
-    private readonly Transform _container;    
+    private readonly BotObjectPool _pool;
+    private readonly Character _character;  
     private readonly Counter _deathCounter;
+    private readonly RewardObjectPool _rewardObjectPool;
 
-    public BotSpawner(Bot template, Character character, Transform container, Counter deathCounter)
+    public BotSpawner(BotObjectPool pool, Character character, Counter deathCounter, RewardObjectPool rewardObjectPool)
     {
-        _template = template ?? throw new ArgumentNullException(nameof(template));
+        _pool = pool ?? throw new ArgumentNullException(nameof(pool));
         _character = character ?? throw new ArgumentNullException(nameof(character));
-        _container = container ?? throw new ArgumentNullException(nameof(container));
         _deathCounter = deathCounter ?? throw new ArgumentNullException(nameof(deathCounter));
+        _rewardObjectPool = rewardObjectPool ?? throw new ArgumentNullException(nameof(rewardObjectPool));
     }
 
-    public void Spawn(Vector3 position)
+    public bool Spawn(Vector3 position)
     {
-        Bot newBot = MonoBehaviour.Instantiate(_template, position, Quaternion.identity, _container);
-        newBot.Init(_character, _deathCounter);
+        Bot bot = _pool.GetPooledObject();
+        if (bot == null)
+            return false;
+
+        bot.transform.SetPositionAndRotation(position, Quaternion.identity);
+        bot.gameObject.SetActive(true);
+
+        if (bot.Health != null)
+            bot.Health.Resurrect();
+        else
+            bot.Init(_character, _deathCounter, _rewardObjectPool);
+
+        return true;
     }
 }

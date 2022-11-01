@@ -1,12 +1,10 @@
 using BehaviorDesigner.Runtime;
-using System;
 using UnityEngine;
 
 public class Bot : MonoBehaviour
 {
     [SerializeField] private Config _config;
     [SerializeField] private BehaviorTree _behaviorTree;
-    [SerializeField] private Reward _rewardTemplate;
     [SerializeField] private CharacterMovement _characterMovement;
     [SerializeField] private BotInput _botInput;
     [SerializeField] private ColorSwithcer _damageRender;
@@ -18,12 +16,12 @@ public class Bot : MonoBehaviour
 
     private const string PlayerShared = "_player";
 
-    public void Init(Character character, Counter deathCounter)
+    public void Init(Character character, Counter deathCounter, RewardObjectPool rewardObjectPool)
     {
         Health = new Health(_config.BotHealth);
         _characterMovement.Init(_botInput);
         _behaviorTree.SetVariable(PlayerShared, (SharedCharacter)character);
-        _rewardSpawner = new RewardSpawner(_config.RewardForBot, character.transform, _rewardTemplate);
+        _rewardSpawner = new RewardSpawner(_config.RewardForBot, character.transform, rewardObjectPool);
         _deathCounter = deathCounter;
         enabled = true;
     }
@@ -44,7 +42,7 @@ public class Bot : MonoBehaviour
     {
         _rewardSpawner.Spawn(transform.position, transform.rotation);
         _deathCounter.Increase();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     private void OnHealthChanged(int currentValue, int maxValue)

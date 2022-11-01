@@ -2,5 +2,5 @@
 
 public interface ISpawnWave
 {
-    void Spawn(int size, Vector3 point);
+    int Spawn(int size, Vector3 point);
 }

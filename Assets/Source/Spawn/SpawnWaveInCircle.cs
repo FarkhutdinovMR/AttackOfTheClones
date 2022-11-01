@@ -16,7 +16,7 @@ public class SpawnWaveInCircle : ISpawnWave
         _spawner = spawner ?? throw new ArgumentNullException(nameof(spawner));
     }
 
-    public void Spawn(int size, Vector3 point)
+    public int Spawn(int size, Vector3 point)
     {
         int count = 0;
         float radius = _startRadius;
@@ -28,15 +28,20 @@ public class SpawnWaveInCircle : ISpawnWave
             {
                 var spawnPoint = new Vector3(radius * Mathf.Cos(angleStep * i * Mathf.Deg2Rad), 0f, radius * Mathf.Sin(angleStep * i * Mathf.Deg2Rad));
                 spawnPoint += point;
-                _spawner.Spawn(spawnPoint);
+
+                if (_spawner.Spawn(spawnPoint) == false)
+                    return count;
+
                 count++;
 
                 if (count >= size)
-                    return;
+                    return count;
             }
 
             radius += _distanceBetweenCircles;
             angleStep -= 360f / (radius + radius);
         }
+
+        return count;
     }
 }
