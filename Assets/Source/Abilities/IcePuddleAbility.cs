@@ -6,26 +6,39 @@ public class IcePuddleAbility : Ability
     [SerializeField] private IcePuddle _icePuddle;
     [SerializeField] private float _growSpeed = 1f;
     [SerializeField] private float _waitBeforeDisappear = 1f;
+    [SerializeField] private ParticleSystem[] _particleSystems;
 
-    public override void Use()
+    public override IEnumerator Use()
     {
         _icePuddle.Init(AttackDamage);
-        _icePuddle.transform.localScale = Vector3.zero;
-        _icePuddle.gameObject.SetActive(true);
-        StartCoroutine(Grow());
-    }
+        _icePuddle.Reset();
+        PlayFX();
+        float puddleSize = 0f;
 
-    private IEnumerator Grow()
-    {
-        float size = 0f;
-        while (size < AttackRadius)
+        while (puddleSize < AttackRadius)
         {
-            size += _growSpeed * Time.deltaTime;
-            _icePuddle.transform.localScale = new Vector3(size, size, size);
+            puddleSize += _growSpeed * Time.deltaTime;
+            _icePuddle.transform.localScale = new Vector3(puddleSize, puddleSize, puddleSize);
             yield return null;
         }
 
+        StopFX();
         yield return new WaitForSeconds(_waitBeforeDisappear);
-        _icePuddle.gameObject.SetActive(false);
+        _icePuddle.Disable();
+
+        yield return null;
     }
+
+    private void StopFX()
+    {
+        foreach (ParticleSystem particleSystem in _particleSystems)
+            particleSystem.Stop();
+    }
+
+    private void PlayFX()
+    {
+        foreach (ParticleSystem particleSystem in _particleSystems)
+            particleSystem.Play();
+    }
+
 }

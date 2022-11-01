@@ -12,17 +12,11 @@ public class WaveSpawner : MonoBehaviour
 
     private ISpawnWave _spawnWave;
     private int _currentCount;
-    private Coroutine _spawnCoroutine;
 
     public void Init(ISpawnWave spawnWave)
     {
         _spawnWave = spawnWave;
-        StartSpawn();
-    }
-
-    private void StartSpawn()
-    {
-        _spawnCoroutine = StartCoroutine(SpawnWaves());
+        StartCoroutine(SpawnWaves());
     }
 
     IEnumerator SpawnWaves()

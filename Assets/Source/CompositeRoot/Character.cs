@@ -13,12 +13,14 @@ public class Character : CompositeRoot
     public PlayerInput Input { get; private set; }
     public Health Health { get; private set; }
     public CharacterLevel CharacterLevel { get; private set; }
+    public Wallet Wallet { get; private set; }
 
     public override void Compose()
     {
         Health = new Health(_config.CharacterHealth);
         CharacterLevel = new CharacterLevel(0, 0, _config.CharacterLevelUp);
         Input = new PlayerInput();
+        Wallet = new Wallet();
         _playerTouchInputView.Init(Input);
         _movement.Init(Input);
     }

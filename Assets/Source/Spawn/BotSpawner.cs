@@ -25,10 +25,11 @@ public class BotSpawner : ISpawner
         bot.transform.SetPositionAndRotation(position, Quaternion.identity);
         bot.gameObject.SetActive(true);
 
-        if (bot.Health != null)
-            bot.Health.Resurrect();
-        else
-            bot.Init(_character, _deathCounter, _rewardObjectPool);
+        //if (bot.Health != null)
+        //    bot.Ressurect();
+        //else
+        //    bot.Init(_character, _deathCounter, _rewardObjectPool);
+        bot.Init(_character, _deathCounter, _rewardObjectPool);
 
         return true;
     }

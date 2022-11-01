@@ -1,4 +1,5 @@
 using BehaviorDesigner.Runtime;
+using System;
 using UnityEngine;
 
 public class Bot : MonoBehaviour
@@ -19,10 +20,11 @@ public class Bot : MonoBehaviour
     public void Init(Character character, Counter deathCounter, RewardObjectPool rewardObjectPool)
     {
         Health = new Health(_config.BotHealth);
-        _characterMovement.Init(_botInput);
-        _behaviorTree.SetVariable(PlayerShared, (SharedCharacter)character);
         _rewardSpawner = new RewardSpawner(_config.RewardForBot, character.transform, rewardObjectPool);
-        _deathCounter = deathCounter;
+        _characterMovement.Init(_botInput);
+        _damageRender.Init();
+        _behaviorTree.SetVariable(PlayerShared, (SharedCharacter)character);
+        _deathCounter = deathCounter ?? throw new ArgumentNullException(nameof(deathCounter));
         enabled = true;
     }
 
@@ -42,6 +44,7 @@ public class Bot : MonoBehaviour
     {
         _rewardSpawner.Spawn(transform.position, transform.rotation);
         _deathCounter.Increase();
+        enabled = false;
         gameObject.SetActive(false);
     }
 

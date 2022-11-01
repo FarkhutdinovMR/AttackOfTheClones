@@ -26,6 +26,17 @@ public class IcePuddle : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        transform.localScale = Vector3.zero;
+        gameObject.SetActive(true);
+    }
+
+    public void Disable()
+    {
+        gameObject.SetActive(false);
+    }
+
     private void Damage()
     {
         var getObjectsInRadius = new GetObjectsInRadius<Bot>(_radius, transform);

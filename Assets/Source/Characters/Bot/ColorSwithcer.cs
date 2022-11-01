@@ -18,6 +18,12 @@ public class ColorSwithcer : MonoBehaviour
             _colors[i] = _mesh.materials[i].color;
     }
 
+    public void Init()
+    {
+        for (int i = 0; i < _mesh.sharedMaterials.Length; i++)
+            _mesh.materials[i].color = _colors[i];
+    }
+
     public void Switch()
     {
         if (_coroutine != null)
@@ -33,9 +39,7 @@ public class ColorSwithcer : MonoBehaviour
 
         yield return new WaitForSeconds(_waitTime);
 
-        for (int i = 0; i < _mesh.sharedMaterials.Length; i++)
-            _mesh.materials[i].color = _colors[i];
-
+        Init();
         _coroutine = null;
     }
 }

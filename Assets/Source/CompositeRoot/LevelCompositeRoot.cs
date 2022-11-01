@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class LevelCompositeRoot : CompositeRoot
@@ -9,7 +8,6 @@ public class LevelCompositeRoot : CompositeRoot
     [SerializeField] private WinWndow _winWindow;
     [SerializeField] private FailWindow _failWindow;
     [SerializeField] private Character _character;
-    [SerializeField] private float _waitTimeBeforeEndGame;
     [SerializeField] private BotSpawner _botSpawner;
     [SerializeField] private SceneLoader _sceneLoader;
 
@@ -63,24 +61,13 @@ public class LevelCompositeRoot : CompositeRoot
 
     private void CompleteLevel()
     {
-        StartCoroutine(OpenWinWindow());
+        Pause();
+        _character.Wallet.Add(_character.CharacterLevel.Exp);
+        _winWindow.Open(_character.Wallet.Gold, Resume);
     }
 
     private void OnCharacterDied()
     {
-        StartCoroutine(OpenFailWindow());
-    }
-
-    private IEnumerator OpenWinWindow()
-    {
-        yield return new WaitForSeconds(_waitTimeBeforeEndGame);
-        Pause();
-        _winWindow.Open(Resume);
-    }
-
-    private IEnumerator OpenFailWindow()
-    {
-        yield return new WaitForSeconds(_waitTimeBeforeEndGame);
         Pause();
         _failWindow.Open(Resume);
     }
