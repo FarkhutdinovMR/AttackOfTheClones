@@ -158,9 +158,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <States>k__BackingField:
-  - {fileID: 11400000, guid: 5e869671352f2b544af23144923bb764, type: 2}
-  - {fileID: 11400000, guid: 7048f9824c497f64ba33cb1a5f2a5732, type: 2}
-  - {fileID: 11400000, guid: cb7dca436b42c2449b0d3d249b59f164, type: 2}
+  - <Name>k__BackingField: IcePuddleAttackDamage
+    <Type>k__BackingField: 0
+    <BaseValue>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: de629debbb984994daa432462e6cd525, type: 3}
+    <Upgrade>k__BackingField:
+      <Level>k__BackingField: 1
+      <MaxLevel>k__BackingField: 10
+      <Modificator>k__BackingField: 1
+  - <Name>k__BackingField: IcePuddleAttackRadius
+    <Type>k__BackingField: 1
+    <BaseValue>k__BackingField: 4
+    <Icon>k__BackingField: {fileID: 21300000, guid: de629debbb984994daa432462e6cd525, type: 3}
+    <Upgrade>k__BackingField:
+      <Level>k__BackingField: 1
+      <MaxLevel>k__BackingField: 10
+      <Modificator>k__BackingField: 1
+  - <Name>k__BackingField: IcePuddleAttackInterval
+    <Type>k__BackingField: 2
+    <BaseValue>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: de629debbb984994daa432462e6cd525, type: 3}
+    <Upgrade>k__BackingField:
+      <Level>k__BackingField: 1
+      <MaxLevel>k__BackingField: 10
+      <Modificator>k__BackingField: 1
   _icePuddle: {fileID: 5728804543415699618}
   _growSpeed: 5
   _waitBeforeDisappear: 1

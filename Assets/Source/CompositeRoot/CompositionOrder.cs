@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-class CompositionOrder : MonoBehaviour
+namespace CompositeRoot
 {
-    [SerializeField] private List<CompositeRoot> _order;
-
-    private void Awake()
+    class CompositionOrder : MonoBehaviour
     {
-        foreach (var compositionRoot in _order)
+        [SerializeField] private List<CompositeRoot> _order;
+
+        private void Awake()
         {
-            compositionRoot.Compose();
-            compositionRoot.enabled = true;
+            foreach (var compositionRoot in _order)
+            {
+                compositionRoot.Compose();
+                compositionRoot.enabled = true;
+            }
         }
     }
 }

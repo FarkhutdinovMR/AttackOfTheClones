@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 4360572585299969246}
   - component: {fileID: 4360572585299969239}
   - component: {fileID: 4360572585299969234}
-  - component: {fileID: 4360572585299969233}
-  - component: {fileID: 4360572585299969247}
+  - component: {fileID: 2448123281107415695}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -29,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4360572585299969193}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -51,13 +50,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.8
+  m_Height: 2.2
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 1.1, z: 0}
 --- !u!114 &4360572585299969246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,11 +71,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: a080a8f1532645340ab55e0a12af73ca, type: 2}
   _movement: {fileID: 4360572585299969239}
-  _healthView: {fileID: 9175654015123614889}
-  _levelPresenter: {fileID: 0}
-  _abilityUpgrade: {fileID: 4360572585299969247}
-  _levelComposite: {fileID: 0}
   _playerTouchInputView: {fileID: 0}
+  _healthView: {fileID: 9175654015123614889}
+  <States>k__BackingField:
+  - <Name>k__BackingField: AttackDamage
+    <Type>k__BackingField: 0
+    <BaseValue>k__BackingField: 10
+    <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
+    <Upgrade>k__BackingField:
+      <Level>k__BackingField: 1
+      <MaxLevel>k__BackingField: 10
+      <Modificator>k__BackingField: 1
+  - <Name>k__BackingField: AttackRadius
+    <Type>k__BackingField: 1
+    <BaseValue>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: a9ba49af3ee3062498ed2c2881a8a381, type: 3}
+    <Upgrade>k__BackingField:
+      <Level>k__BackingField: 1
+      <MaxLevel>k__BackingField: 10
+      <Modificator>k__BackingField: 1
+  - <Name>k__BackingField: AttackInterval
+    <Type>k__BackingField: 2
+    <BaseValue>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: a9ba49af3ee3062498ed2c2881a8a381, type: 3}
+    <Upgrade>k__BackingField:
+      <Level>k__BackingField: 1
+      <MaxLevel>k__BackingField: 10
+      <Modificator>k__BackingField: 1
+  <AbilityFactory>k__BackingField: {fileID: 2448123281107415695}
 --- !u!114 &4360572585299969239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 10
---- !u!114 &4360572585299969233
+--- !u!114 &2448123281107415695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,32 +136,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4360572585299969193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 268793200f5b6b64fb1cb721256030eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 779ddeb183d540b45b56e9eb8aa2f7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseStates:
-  - {fileID: 11400000, guid: 0d93187ef470ab4408496c5c70b4c01c, type: 2}
-  - {fileID: 11400000, guid: 7084d3f96c0c2e14fa445f83527ea9af, type: 2}
-  - {fileID: 11400000, guid: e230b04bbdd93df4aa267e30e30fb6e7, type: 2}
   _abilitiesTemplate:
-  - {fileID: 8377992147441980969, guid: e7716ab064fc7f14887b1d987d87dc01, type: 3}
-  _nearbyBot: {fileID: 4360572585299969234}
---- !u!114 &4360572585299969247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4360572585299969193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa09915c103ead4b8adc9e99601b144, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _abilityUpgradeWindow: {fileID: 0}
-  _container: {fileID: 0}
-  _stateTemplate: {fileID: 8142232354359680846, guid: daaea8ee1d369bb4c8197dcf7a83aae8, type: 3}
-  _abilityFactory: {fileID: 4360572585299969233}
+  - {fileID: 3051959675595683626, guid: 124cf0d7e3d37604f8c74bf46d0549a5, type: 3}
+  _character: {fileID: 4360572585299969246}
+  _targetSource: {fileID: 4360572585299969234}
 --- !u!1 &4360572586118296526
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,18 +348,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.30588236, g: 0.6117647, b: 0.9647059, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 674a858da10d08941a1835234ee8cac2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cc7c4110305e45418586f0466ddd2b2, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 0
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -431,7 +434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 52bb615b446bc43a2974460d87ecef3d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cc7c4110305e45418586f0466ddd2b2, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

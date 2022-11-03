@@ -1,4 +1,5 @@
 using UnityEngine;
+using CompositeRoot;
 
 public class LoadFirstScene : MonoBehaviour
 {

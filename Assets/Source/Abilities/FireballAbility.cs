@@ -1,16 +1,29 @@
 using System.Collections;
 using UnityEngine;
 
-public class FireballAbility : Ability
+public class FireballAbility : Ability, IAbility
 {
     [SerializeField] private Fireball _fireballTemplate;
 
-    public override IEnumerator Use()
+    public void Use()
     {
-        Vector3 direction = Target.position - transform.position;
-        Fireball newFireball = Instantiate(_fireballTemplate, transform.position + Vector3.up, Quaternion.LookRotation(direction));
-        newFireball.Init(AttackRadius, AttackDamage);
+        StartCoroutine(Repeat());
+    }
 
-        yield return null;
+    private IEnumerator Repeat()
+    {
+        while (true)
+        {
+            yield return null;
+
+            if (TargetSource.Target == null)
+                continue;
+
+            Vector3 direction = TargetSource.Target.position - transform.position;
+            Fireball newFireball = Instantiate(_fireballTemplate, transform.position + Vector3.up, Quaternion.LookRotation(direction));
+            newFireball.Init(Slot.GetValue(StateType.AttackRadius), (int)Slot.GetValue(StateType.AttackDamage));
+
+            yield return new WaitForSeconds(Slot.GetValue(StateType.AttackInterval));
+        }
     }
 }

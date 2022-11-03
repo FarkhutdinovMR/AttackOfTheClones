@@ -1,74 +1,82 @@
 using UnityEngine;
 
-public class LevelCompositeRoot : CompositeRoot
+namespace CompositeRoot
 {
-    [SerializeField] private WaveSpawner _spawner;
-    [SerializeField] private ProgressBarView _levelProgressView;
-    [SerializeField] private TextView _currentLevelView;
-    [SerializeField] private WinWndow _winWindow;
-    [SerializeField] private FailWindow _failWindow;
-    [SerializeField] private Character _character;
-    [SerializeField] private BotSpawner _botSpawner;
-    [SerializeField] private SceneLoader _sceneLoader;
-
-    public Counter DeathCounter { get; private set; }
-
-    public override void Compose()
+    public class LevelCompositeRoot : CompositeRoot
     {
-        DeathCounter = new Counter(_spawner.Amount);
-    }
+        [SerializeField] private WaveSpawner _spawner;
+        [SerializeField] private ProgressBarView _levelProgressView;
+        [SerializeField] private TextView _currentLevelView;
+        [SerializeField] private WinWndow _winWindow;
+        [SerializeField] private FailWindow _failWindow;
+        [SerializeField] private CharacterCompositeRoot _characterCompositeRoot;
+        [SerializeField] private BotSpawner _botSpawner;
+        [SerializeField] private SceneLoader _sceneLoader;
+        [SerializeField] private BotObjectPool _botObjectPool;
+        [SerializeField] private RewardObjectPool _rewardsObjectPool;
+        [SerializeField] private float _waitTimeAfterLevelComplete;
 
-    private void OnEnable()
-    {
-        DeathCounter.Changed += OnDeathCounterChanged;
-        DeathCounter.Complited += OnDeathCounterComplited;
-        _character.Health.Died += OnCharacterDied;
-    }
+        public Counter DeathCounter { get; private set; }
 
-    private void OnDisable()
-    {
-        DeathCounter.Changed -= OnDeathCounterChanged;
-        DeathCounter.Complited -= OnDeathCounterComplited;
-        _character.Health.Died -= OnCharacterDied;
-    }
+        public override void Compose()
+        {
+            DeathCounter = new Counter(_spawner.Amount);
+            _botObjectPool.Init();
+            _rewardsObjectPool.Init();
+        }
 
-    private void Start()
-    {
-        _currentLevelView.Render(_sceneLoader.CurrentSceneIndex);
-    }
+        private void OnEnable()
+        {
+            DeathCounter.Changed += OnDeathCounterChanged;
+            DeathCounter.Complited += OnDeathCounterComplited;
+            _characterCompositeRoot.Character.Health.Died += OnCharacterDied;
+        }
 
-    private void OnDeathCounterChanged(int count)
-    {
-        _levelProgressView.Render((float)count / _spawner.Amount);
-    }
+        private void OnDisable()
+        {
+            DeathCounter.Changed -= OnDeathCounterChanged;
+            DeathCounter.Complited -= OnDeathCounterComplited;
+            _characterCompositeRoot.Character.Health.Died -= OnCharacterDied;
+        }
 
-    private void OnDeathCounterComplited()
-    {
-        CompleteLevel();
-    }
+        private void Start()
+        {
+            _currentLevelView.Render(_sceneLoader.CurrentSceneIndex);
+        }
 
-    public void Pause()
-    {
-        Time.timeScale = 0f;
-        _character.Input.Disable();
-    }
+        private void OnDeathCounterChanged(int count)
+        {
+            _levelProgressView.Render((float)count / _spawner.Amount);
+        }
 
-    public void Resume()
-    {
-        Time.timeScale = 1f;
-        _character.Input.Enable();
-    }
+        private void OnDeathCounterComplited()
+        {
+            Invoke(nameof(CompleteLevel), _waitTimeAfterLevelComplete);
+        }
 
-    private void CompleteLevel()
-    {
-        Pause();
-        _character.Wallet.Add(_character.CharacterLevel.Exp);
-        _winWindow.Open(_character.Wallet.Gold, Resume);
-    }
+        public void Pause()
+        {
+            Time.timeScale = 0f;
+            _characterCompositeRoot.Input.Disable();
+        }
 
-    private void OnCharacterDied()
-    {
-        Pause();
-        _failWindow.Open(Resume);
+        public void Resume()
+        {
+            Time.timeScale = 1f;
+            _characterCompositeRoot.Input.Enable();
+        }
+
+        private void CompleteLevel()
+        {
+            Pause();
+            _characterCompositeRoot.Character.Wallet.Add(_characterCompositeRoot.Character.Level.Exp);
+            _winWindow.Open(_characterCompositeRoot.Character.Wallet.Gold, Resume);
+        }
+
+        private void OnCharacterDied()
+        {
+            Pause();
+            _failWindow.Open(Resume);
+        }
     }
 }

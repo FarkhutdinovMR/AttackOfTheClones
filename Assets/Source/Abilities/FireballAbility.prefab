@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1010430414850990258
+--- !u!1 &3867489824514869623
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3202968104627065148}
-  - component: {fileID: 5169830953859461545}
+  - component: {fileID: 5036205600330985290}
+  - component: {fileID: 3051959675595683626}
   m_Layer: 0
   m_Name: FireballAbility
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3202968104627065148
+--- !u!4 &5036205600330985290
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1010430414850990258}
+  m_GameObject: {fileID: 3867489824514869623}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,20 +32,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5169830953859461545
+--- !u!114 &3051959675595683626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1010430414850990258}
+  m_GameObject: {fileID: 3867489824514869623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5082677c5f5739b4f954bb103960ddd3, type: 3}
+  m_Script: {fileID: 11500000, guid: afc8ce6a92f2f4c4fb11edc043b3961c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <States>k__BackingField:
-  - {fileID: 11400000, guid: e41dd89d8b4d844429c2592e5deead32, type: 2}
-  - {fileID: 11400000, guid: 425a3157e42299f48ac21584ac3895e6, type: 2}
-  - {fileID: 11400000, guid: 7780f1f0563d17348aa840105085e6c6, type: 2}
+  - <Name>k__BackingField: FireballAttackDamage
+    <Type>k__BackingField: 0
+    <BaseValue>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
+    <Upgrade>k__BackingField:
+      <Level>k__BackingField: 1
+      <MaxLevel>k__BackingField: 10
+      <Modificator>k__BackingField: 1
+  - <Name>k__BackingField: FireballAttackRadius
+    <Type>k__BackingField: 1
+    <BaseValue>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
+    <Upgrade>k__BackingField:
+      <Level>k__BackingField: 1
+      <MaxLevel>k__BackingField: 10
+      <Modificator>k__BackingField: 1
+  - <Name>k__BackingField: FireballAttackInterval
+    <Type>k__BackingField: 2
+    <BaseValue>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
+    <Upgrade>k__BackingField:
+      <Level>k__BackingField: 1
+      <MaxLevel>k__BackingField: 10
+      <Modificator>k__BackingField: 1
   _fireballTemplate: {fileID: 2013087991896148216, guid: d7df6101a73d22d4fabced10378cd9d1, type: 3}

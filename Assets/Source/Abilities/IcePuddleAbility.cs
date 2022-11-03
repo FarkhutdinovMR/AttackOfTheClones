@@ -1,32 +1,40 @@
 using System.Collections;
 using UnityEngine;
 
-public class IcePuddleAbility : Ability
+public class IcePuddleAbility : Ability, IAbility
 {
     [SerializeField] private IcePuddle _icePuddle;
     [SerializeField] private float _growSpeed = 1f;
     [SerializeField] private float _waitBeforeDisappear = 1f;
     [SerializeField] private ParticleSystem[] _particleSystems;
 
-    public override IEnumerator Use()
+    public void Use()
     {
-        _icePuddle.Init(AttackDamage);
-        _icePuddle.Reset();
-        PlayFX();
-        float puddleSize = 0f;
+        StartCoroutine(Repeat());
+    }
 
-        while (puddleSize < AttackRadius)
+    public IEnumerator Repeat()
+    {
+        while (true)
         {
-            puddleSize += _growSpeed * Time.deltaTime;
-            _icePuddle.transform.localScale = new Vector3(puddleSize, puddleSize, puddleSize);
-            yield return null;
+            _icePuddle.Init((int)Slot.GetValue(StateType.AttackDamage));
+            _icePuddle.Reset();
+            PlayFX();
+            float puddleSize = 0f;
+
+            while (puddleSize < Slot.GetValue(StateType.AttackRadius))
+            {
+                puddleSize += _growSpeed * Time.deltaTime;
+                _icePuddle.transform.localScale = new Vector3(puddleSize, puddleSize, puddleSize);
+                yield return null;
+            }
+
+            StopFX();
+            yield return new WaitForSeconds(_waitBeforeDisappear);
+            _icePuddle.Disable();
+
+            yield return new WaitForSeconds(Slot.GetValue(StateType.AttackInterval));
         }
-
-        StopFX();
-        yield return new WaitForSeconds(_waitBeforeDisappear);
-        _icePuddle.Disable();
-
-        yield return null;
     }
 
     private void StopFX()
@@ -40,5 +48,4 @@ public class IcePuddleAbility : Ability
         foreach (ParticleSystem particleSystem in _particleSystems)
             particleSystem.Play();
     }
-
 }

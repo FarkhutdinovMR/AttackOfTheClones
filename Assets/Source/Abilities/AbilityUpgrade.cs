@@ -4,33 +4,34 @@ using UnityEngine;
 
 public class AbilityUpgrade : MonoBehaviour
 {
-    [SerializeField] private GameObject _abilityUpgradeWindow;
     [SerializeField] private Transform _container;
     [SerializeField] private StateView _stateTemplate;
-    [SerializeField] private AbilityFactory _abilityFactory;
 
     private const int StateAmount = 3;
 
+    private AbilityFactory _abilityFactory;
+    private State[] _characterStats;
     private List<State> _states = new();
     private List<StateView> _stateViews = new();
-    private Action Completed;
+    private Action _onWindowCloseCallback;
 
-    private void Start()
+    public void Init(State[] characterStats, AbilityFactory abilityFactory)
     {
-        foreach(Ability ability in _abilityFactory.Abilities)
-        {
+        _characterStats = characterStats;
+        _abilityFactory = abilityFactory;
+
+        foreach (Ability ability in _abilityFactory.Abilities)
             foreach (State state in ability.States)
                 _states.Add(state);
-        }
 
-        foreach (State state in _abilityFactory.BaseStates)
+        foreach (State state in _characterStats)
             _states.Add(state);
     }
 
-    public void OpenUpgradeWindow(Action callback)
+    public void OpenUpgradeWindow(Action onWindowCloseCallback)
     {
-        Completed = callback;
-        _abilityUpgradeWindow.SetActive(true);
+        _onWindowCloseCallback = onWindowCloseCallback;
+        gameObject.SetActive(true);
 
         if (_stateViews.Count > 0)
             Clear();
@@ -68,7 +69,7 @@ public class AbilityUpgrade : MonoBehaviour
 
     private void OnStateUpgraded()
     {
-        _abilityUpgradeWindow.SetActive(false);
-        Completed?.Invoke();
+        gameObject.SetActive(false);
+        _onWindowCloseCallback?.Invoke();
     }
 }

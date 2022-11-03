@@ -1,34 +1,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool<T> : CompositeRoot where T : Component
-{
-    [SerializeField] private T _object;
-    [SerializeField] private int _amount;
-    [SerializeField] private Transform _container;
-
-    private List<T> _pooledObjects = new();
-
-    public override void Compose()
+    public class ObjectPool<T> : MonoBehaviour where T : Component
     {
-        for (int i = 0; i < _amount; i++)
-            IncreasePool();
-    }
+        [SerializeField] private T _object;
+        [SerializeField] private int _amount;
+        [SerializeField] private Transform _container;
 
-    public T GetPooledObject()
-    {
-        T result = _pooledObjects.Find(item => item.gameObject.activeInHierarchy == false);
-        if (result != null)
-            return result;
+        private List<T> _pooledObjects = new();
 
-        return null;
-    }
+        public void Init()
+        {
+            for (int i = 0; i < _amount; i++)
+                IncreasePool();
+        }
 
-    private T IncreasePool()
-    {
-        T newObject = Instantiate(_object, _container);
-        newObject.gameObject.SetActive(false);
-        _pooledObjects.Add(newObject);
-        return newObject;
+        public T GetPooledObject()
+        {
+            T result = _pooledObjects.Find(item => item.gameObject.activeInHierarchy == false);
+            if (result != null)
+                return result;
+
+            return null;
+        }
+
+        private T IncreasePool()
+        {
+            T newObject = Instantiate(_object, _container);
+            newObject.gameObject.SetActive(false);
+            _pooledObjects.Add(newObject);
+            return newObject;
+        }
     }
-}
