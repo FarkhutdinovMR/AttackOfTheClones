@@ -10,6 +10,7 @@ public class CharacterMovement : MonoBehaviour
     private ICharacterInputSource _inputSource;
     private CharacterController _characterController;
     private Transform _lookTarget;
+    private Vector3 _force;
 
     private ITargetSource _targetSource => (ITargetSource)_targetSourceBehaviour;
     public float CurrentSpeed => _characterController.velocity.magnitude;
@@ -45,7 +46,8 @@ public class CharacterMovement : MonoBehaviour
     {
         var direction = new Vector3(delta.x, 0f, delta.y);
         direction *= _moveSpeed;
-        _characterController.SimpleMove(direction);
+        _characterController.SimpleMove(direction + _force);
+        _force = Vector3.zero;
     }
 
     private void LookAt()
@@ -63,5 +65,10 @@ public class CharacterMovement : MonoBehaviour
         direction = new Vector3(direction.x, 0f, direction.z);
         Quaternion rotate = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotate, _rotateSpeed * Time.deltaTime);
+    }
+
+    public void AddForce(Vector3 force)
+    {
+        _force = force;
     }
 }

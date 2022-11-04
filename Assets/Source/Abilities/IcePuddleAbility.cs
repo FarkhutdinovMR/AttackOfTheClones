@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class IcePuddleAbility : Ability, IAbility
@@ -7,6 +8,9 @@ public class IcePuddleAbility : Ability, IAbility
     [SerializeField] private float _growSpeed = 1f;
     [SerializeField] private float _waitBeforeDisappear = 1f;
     [SerializeField] private ParticleSystem[] _particleSystems;
+    [field: SerializeField] public IcePuddleState[] States { get; private set; }
+
+    public override IEnumerable<State> BaseStates => States;
 
     public void Use()
     {

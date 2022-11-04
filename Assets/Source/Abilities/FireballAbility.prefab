@@ -44,29 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc8ce6a92f2f4c4fb11edc043b3961c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <States>k__BackingField:
-  - <Name>k__BackingField: FireballAttackDamage
-    <Type>k__BackingField: 0
-    <BaseValue>k__BackingField: 1
-    <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
-    <Upgrade>k__BackingField:
-      <Level>k__BackingField: 1
-      <MaxLevel>k__BackingField: 10
-      <Modificator>k__BackingField: 1
-  - <Name>k__BackingField: FireballAttackRadius
-    <Type>k__BackingField: 1
-    <BaseValue>k__BackingField: 1
-    <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
-    <Upgrade>k__BackingField:
-      <Level>k__BackingField: 1
-      <MaxLevel>k__BackingField: 10
-      <Modificator>k__BackingField: 1
-  - <Name>k__BackingField: FireballAttackInterval
-    <Type>k__BackingField: 2
-    <BaseValue>k__BackingField: 1
-    <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
-    <Upgrade>k__BackingField:
-      <Level>k__BackingField: 1
-      <MaxLevel>k__BackingField: 10
-      <Modificator>k__BackingField: 1
   _fireballTemplate: {fileID: 2013087991896148216, guid: d7df6101a73d22d4fabced10378cd9d1, type: 3}
+  <States>k__BackingField:
+  - <Config>k__BackingField: {fileID: 11400000, guid: 804a82fd6634b99489ba2c557716faee, type: 2}
+  - <Config>k__BackingField: {fileID: 11400000, guid: e7c8bffd930d3a44390f00af7af92a18, type: 2}
+  - <Config>k__BackingField: {fileID: 11400000, guid: 744f274e12f362945a723bc3986538de, type: 2}

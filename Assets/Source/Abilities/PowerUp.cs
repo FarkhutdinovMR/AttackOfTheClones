@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    [SerializeField] private State _state;
+    [SerializeField] private FireballState _state;
     [SerializeField] private float _time;
 
     private Slot _slot;
@@ -12,7 +12,7 @@ public class PowerUp : MonoBehaviour
         if (other.TryGetComponent(out AbilityFactory abilityFactory))
         {
             _slot = abilityFactory.Slots[1];
-            _slot.AddState(_state);
+            //_slot.AddState(_state);
             Invoke(nameof(Disable), _time);
             gameObject.SetActive(false);
         }
@@ -20,6 +20,6 @@ public class PowerUp : MonoBehaviour
 
     private void Disable()
     {
-        _slot.RemoveState(_state);
+        //_slot.RemoveState(_state);
     }
 }

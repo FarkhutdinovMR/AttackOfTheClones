@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
 public class FireballAbility : Ability, IAbility
 {
     [SerializeField] private Fireball _fireballTemplate;
+    [field: SerializeField] public FireballState[] States { get; private set; }
+
+    public override IEnumerable<State> BaseStates => States;
 
     public void Use()
     {

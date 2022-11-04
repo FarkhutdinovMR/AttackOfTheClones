@@ -12,7 +12,7 @@ public class Slot
 
     public float GetValue(StateType stateType)
     {
-        List<State> result = _states.FindAll(s => s.Type == stateType);
+        List<State> result = _states.FindAll(s => s.Config.Type == stateType);
         float value = 0;
         foreach(State newState in result)
             value += newState.Value;

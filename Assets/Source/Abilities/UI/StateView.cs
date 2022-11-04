@@ -34,15 +34,15 @@ public class StateView : MonoBehaviour
 
     private void Render()
     {
-        _stateType.SetText(State.Type.ToString());
-        _stateName.SetText(State.Name + " " + State.Upgrade.Modificator);
-        _icon.sprite = State.Icon;
-        _stateLevel.SetText(_stateLevel.text + State.Upgrade.Level);
+        _stateType.SetText(State.Config.Type.ToString());
+        _stateName.SetText(State.Config.Name + " " + State.Config.UpgradeModificator);
+        _icon.sprite = State.Config.Icon;
+        _stateLevel.SetText(_stateLevel.text + State.Level);
     }
 
     private void OnSelectButtonClicked()
     {
-        State.Upgrade.Upgrade();
+        State.Upgrade();
         Completed?.Invoke();
     }
 }

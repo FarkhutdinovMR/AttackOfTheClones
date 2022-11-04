@@ -1,9 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Ability : MonoBehaviour
+public abstract class Ability : MonoBehaviour
 {
-    [field: SerializeField] public State[] States { get; private set; }
-
+    public abstract IEnumerable<State> BaseStates { get; }
     protected Slot Slot { get; private set; }
     protected ITargetSource TargetSource { get; private set; }
 

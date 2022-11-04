@@ -23,6 +23,7 @@ namespace CompositeRoot
             Input = new PlayerInput();
             _movement.Init(Input);
             _playerTouchInputView.Init(Input);
+            AbilityFactory.Init();
             _abilityUpgrade.Init(Character.States, AbilityFactory);
         }
 

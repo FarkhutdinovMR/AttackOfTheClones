@@ -21,7 +21,7 @@ public class AbilityUpgrade : MonoBehaviour
         _abilityFactory = abilityFactory;
 
         foreach (Ability ability in _abilityFactory.Abilities)
-            foreach (State state in ability.States)
+            foreach (State state in ability.BaseStates)
                 _states.Add(state);
 
         foreach (State state in _characterStats)
