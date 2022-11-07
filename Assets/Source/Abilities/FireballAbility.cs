@@ -1,13 +1,16 @@
-using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
 public class FireballAbility : Ability, IAbility
 {
     [SerializeField] private Fireball _fireballTemplate;
-    [field: SerializeField] public FireballState[] States { get; private set; }
 
-    public override IEnumerable<State> BaseStates => States;
+    protected override void Init(Saver.Data data)
+    {
+        States.Add(new FireballAttackDamage(StateConfigs.Find(config => config.Type == StateType.AttackDamage), data.GetStateLevel(typeof(FireballAttackDamage))));
+        States.Add(new FireballAttackInterval(StateConfigs.Find(config => config.Type == StateType.AttackInterval), data.GetStateLevel(typeof(FireballAttackInterval))));
+        States.Add(new FireballAttackRadius(StateConfigs.Find(config => config.Type == StateType.AttackRadius), data.GetStateLevel(typeof(FireballAttackRadius))));
+    }
 
     public void Use()
     {

@@ -6,24 +6,28 @@ namespace CompositeRoot
     {
         [field: SerializeField] public Character Character { get; private set; }
         [field: SerializeField] public AbilityFactory AbilityFactory { get; private set; }
+        [field: SerializeField] public PlayerTouchInputView PlayerTouchInputView { get; private set; }
         [SerializeField] private CharacterMovement _movement;
         [SerializeField] private Config _config;
         [SerializeField] private Character _characterTemplate;
         [SerializeField] private AbilityUpgrade _abilityUpgrade;
         [SerializeField] private LevelCompositeRoot _levelComposite;
         [SerializeField] private TextView _levelPresenter;
-        [SerializeField] private PlayerTouchInputView _playerTouchInputView;
         [SerializeField] private HealthView _healthView;
+        [SerializeField] private PlayerPrefsSaver _save;
+        [SerializeField] private TextView _goldView;
+        [SerializeField] private TextView _levelPresenter2;
 
         public PlayerInput Input { get; private set; }
 
         public override void Compose()
         {
-            Character.Init(_config);
+            Saver.Data data = _save.Load();
+            Character.Init(_config, data);
             Input = new PlayerInput();
             _movement.Init(Input);
-            _playerTouchInputView.Init(Input);
-            AbilityFactory.Init();
+            PlayerTouchInputView.Init(Input);
+            AbilityFactory.Init(data);
             _abilityUpgrade.Init(Character.States, AbilityFactory);
         }
 
@@ -31,6 +35,7 @@ namespace CompositeRoot
         {
             Character.Health.Changed += _healthView.Render;
             Character.Level.LevelChanged += OnCharacterLevelChanged;
+            Character.Wallet.Changed += _goldView.Render;
             Input.Enable();
         }
 
@@ -38,7 +43,14 @@ namespace CompositeRoot
         {
             Character.Health.Changed -= _healthView.Render;
             Character.Level.LevelChanged -= OnCharacterLevelChanged;
+            Character.Wallet.Changed -= _goldView.Render;
             Input.Disable();
+        }
+
+        private void Start()
+        {
+            _goldView.Render(Character.Wallet.Gold);
+            _levelPresenter2.Render((int)Character.Level.Value);
         }
 
         private void Update()
@@ -46,11 +58,20 @@ namespace CompositeRoot
             Input.Update();
         }
 
+        public void Save()
+        {
+            _save.SaveGold(Character.Wallet.Gold);
+            _save.SaveCharacterLevel(Character.Level);
+            _save.SaveStates(_abilityUpgrade.States);
+            _save.Save();
+        }
+
         private void OnCharacterLevelChanged(uint level)
         {
             _levelComposite.Pause();
             _abilityUpgrade.OpenUpgradeWindow(_levelComposite.Resume);
             _levelPresenter.Render((int)level);
+            _levelPresenter2.Render((int)level);
         }
     }
 }

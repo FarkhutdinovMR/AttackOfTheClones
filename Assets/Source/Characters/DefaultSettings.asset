@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: DefaultSettings
   m_EditorClassIdentifier: 
   <CharacterHealth>k__BackingField: 100
-  <CharacterLevelUp>k__BackingField: 20
+  <CharacterStartLevel>k__BackingField: 1
+  <CharacterLevelUpCost>k__BackingField: 10
+  <CharacterStateStartLevel>k__BackingField: 1
   <BotHealth>k__BackingField: 10
   <RewardForBot>k__BackingField: 1
   <WaveSpawnerStartRadius>k__BackingField: 2

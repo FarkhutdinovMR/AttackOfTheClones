@@ -9,22 +9,19 @@ public class AbilityUpgrade : MonoBehaviour
 
     private const int StateAmount = 3;
 
-    private AbilityFactory _abilityFactory;
-    private State[] _characterStats;
     private List<State> _states = new();
     private List<StateView> _stateViews = new();
     private Action _onWindowCloseCallback;
 
-    public void Init(State[] characterStats, AbilityFactory abilityFactory)
-    {
-        _characterStats = characterStats;
-        _abilityFactory = abilityFactory;
+    public IEnumerable<State> States => _states;
 
-        foreach (Ability ability in _abilityFactory.Abilities)
-            foreach (State state in ability.BaseStates)
+    public void Init(IEnumerable<State> characterStats, AbilityFactory abilityFactory)
+    {
+        foreach (Ability ability in abilityFactory.Abilities)
+            foreach (State state in ability.States)
                 _states.Add(state);
 
-        foreach (State state in _characterStats)
+        foreach (State state in characterStats)
             _states.Add(state);
     }
 

@@ -6,6 +6,12 @@ public class State
 {
     [field: SerializeField] public StateConfig Config { get; private set; }
 
+    public State(StateConfig config, uint level)
+    {
+        Config = config ?? throw new ArgumentNullException(nameof(config));
+        Level = level;
+    }
+
     public uint Level { get; private set; } = 1;
     public float Value => Config.BaseValue + Level * Config.UpgradeModificator;
 

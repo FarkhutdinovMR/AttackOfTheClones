@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    [SerializeField] private FireballState _state;
+    [SerializeField] private FireballAttackDamage _state;
     [SerializeField] private float _time;
 
     private Slot _slot;

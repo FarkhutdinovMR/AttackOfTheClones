@@ -2,21 +2,23 @@ using System;
 
 public class CharacterLevel
 {
-    private readonly uint _startLevelUp;
-
-    private uint _levelUp;
-    private uint _exp;
-    private uint _value;
+    public uint Exp { get; private set; }
+    public uint Value { get; private set; }
+    public uint LevelUpCost { get; private set; }
 
     public CharacterLevel(uint exp, uint value, uint levelUp)
     {
-        _levelUp = _startLevelUp;
-        _exp = exp;
-        _value = value;
-        _levelUp = levelUp;
+        Exp = exp;
+        Value = value;
+        LevelUpCost = levelUp;
     }
 
-    public uint Exp => _exp;
+    public CharacterLevel(CharacterLevel characterLevel)
+    {
+        Exp = characterLevel.Exp;
+        Value = characterLevel.Value;
+        LevelUpCost = characterLevel.LevelUpCost;
+    }
 
     public event Action<uint> LevelChanged;
 
@@ -26,14 +28,14 @@ public class CharacterLevel
 
         while (remain > 0)
         {
-            _exp++;
+            Exp++;
             remain--;
 
-            if (_exp >= _levelUp)
+            if (Exp >= LevelUpCost)
             {
-                _value++;
-                _levelUp += _levelUp;
-                LevelChanged?.Invoke(_value);
+                Value++;
+                LevelUpCost += LevelUpCost;
+                LevelChanged?.Invoke(Value);
             }
         }
     }

@@ -1,16 +1,14 @@
-using CompositeRoot;
 using System;
 using UnityEngine;
 
 public class FailWindow : MonoBehaviour
 {
     [SerializeField] private YandexAd _yandexAd;
-    [SerializeField] private SceneLoader _sceneLoader;
     [SerializeField] private Character _character;
 
-    private Action _onResurrected;
+    private Action<bool> _onResurrected;
 
-    public void Open(Action onResurrectedCallback)
+    public void Open(Action<bool> onResurrectedCallback)
     {
         gameObject.SetActive(true);
         _onResurrected = onResurrectedCallback;
@@ -18,18 +16,12 @@ public class FailWindow : MonoBehaviour
 
     public void OnRestartButtonClicked()
     {
-        _yandexAd.ShowInterstitialAd(OnInterstitialAdEnd);
+        _yandexAd.ShowInterstitialAd(Close);
     }
 
     public void OnRessurectionButtonClicked()
     {
         _yandexAd.ShowVideoAd(OnVideoAdRewarded);
-    }
-
-    private void OnInterstitialAdEnd()
-    {
-        Close();
-        _sceneLoader.Restart();
     }
 
     private void OnVideoAdRewarded(bool result)
@@ -38,12 +30,17 @@ public class FailWindow : MonoBehaviour
             return;
 
         _character.Health.Resurrect();
-        Close();
+        Close(result);
+    }
+
+    private void Close(bool result)
+    {
+        gameObject.SetActive(false);
+        _onResurrected?.Invoke(result);
     }
 
     private void Close()
     {
-        gameObject.SetActive(false);
-        _onResurrected?.Invoke();
+        Close(false);
     }
 }

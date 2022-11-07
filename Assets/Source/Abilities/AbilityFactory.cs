@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class AbilityFactory : MonoBehaviour
@@ -13,7 +12,7 @@ public class AbilityFactory : MonoBehaviour
     public Slot[] Slots { get; private set; }
     public IEnumerable<Ability> Abilities => _abilities;
 
-    public void Init()
+    public void Init(Saver.Data data)
     {
         Slots = new Slot[_abilitiesTemplate.Length];
 
@@ -21,8 +20,10 @@ public class AbilityFactory : MonoBehaviour
         {
             Ability newAbility = Instantiate(_abilitiesTemplate[i], transform);
             _abilities.Add(newAbility);
-            Slots[i] = new Slot(_character.States.Concat(newAbility.BaseStates).ToList());
-            newAbility.Init(Slots[i], _targetSource);
+            Slots[i] = new Slot();
+            newAbility.Init(Slots[i], _targetSource, data);
+            Slots[i].AddStates(_character.States);
+            Slots[i].AddStates(newAbility.States);
         }
     }
 

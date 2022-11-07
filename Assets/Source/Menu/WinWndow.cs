@@ -1,11 +1,9 @@
-using CompositeRoot;
 using System;
 using UnityEngine;
 
 public class WinWndow : MonoBehaviour
 {
     [SerializeField] private YandexAd _yandexAd;
-    [SerializeField] private SceneLoader _sceneLoader;
     [SerializeField] private TextView _goldView;
 
     private Action _onClose;
@@ -19,13 +17,7 @@ public class WinWndow : MonoBehaviour
 
     public void OnNextLevelButtonClicked()
     {
-        _yandexAd.ShowInterstitialAd(OnInterstitialAdEnd);
-    }
-
-    private void OnInterstitialAdEnd()
-    {
-        Close();
-        _sceneLoader.LoadNext();
+        _yandexAd.ShowInterstitialAd(Close);
     }
 
     private void Close()

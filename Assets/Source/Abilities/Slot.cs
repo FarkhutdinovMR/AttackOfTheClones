@@ -5,9 +5,9 @@ public class Slot
 {
     private readonly List<State> _states;
 
-    public Slot(List<State> states)
+    public Slot()
     {
-        _states = states ?? throw new ArgumentNullException(nameof(states));
+        _states = new();
     }
 
     public float GetValue(StateType stateType)

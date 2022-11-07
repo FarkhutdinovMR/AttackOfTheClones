@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class IcePuddleAbility : Ability, IAbility
@@ -8,9 +7,13 @@ public class IcePuddleAbility : Ability, IAbility
     [SerializeField] private float _growSpeed = 1f;
     [SerializeField] private float _waitBeforeDisappear = 1f;
     [SerializeField] private ParticleSystem[] _particleSystems;
-    [field: SerializeField] public IcePuddleState[] States { get; private set; }
 
-    public override IEnumerable<State> BaseStates => States;
+    protected override void Init(Saver.Data saver)
+    {
+        States.Add(new IcePuddleAttackDamage(StateConfigs.Find(config => config.Type == StateType.AttackDamage), saver.GetStateLevel(typeof(IcePuddleAttackDamage))));
+        States.Add(new IcePuddleAttackInterval(StateConfigs.Find(config => config.Type == StateType.AttackInterval), saver.GetStateLevel(typeof(IcePuddleAttackInterval))));
+        States.Add(new IcePuddleAttackRadius(StateConfigs.Find(config => config.Type == StateType.AttackRadius), saver.GetStateLevel(typeof(IcePuddleAttackRadius))));
+    }
 
     public void Use()
     {

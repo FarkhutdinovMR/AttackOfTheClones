@@ -4,22 +4,22 @@ public class Counter
 {
     private readonly int _total;
 
-    private int _value;
+    public uint Value { get; private set; }
 
     public Counter(int total)
     {
         _total = total;
     }
 
-    public event Action<int> Changed;
+    public event Action<uint> Changed;
     public event Action Complited;
 
     public void Increase()
     {
-        _value++;
-        Changed?.Invoke(_value);
+        Value++;
+        Changed?.Invoke(Value);
 
-        if (_value >= _total)
+        if (Value >= _total)
             Complited?.Invoke();
     }
 }
