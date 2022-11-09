@@ -18,7 +18,7 @@ namespace CompositeRoot
         [SerializeField] private BotObjectPool _botObjectPool;
         [SerializeField] private RewardObjectPool _rewardsObjectPool;
         [SerializeField] private float _waitTimeAfterLevelComplete;
-        [SerializeField] private PlayerPrefsSaver _save;
+        [SerializeField] private Saver _save;
         [SerializeField] private UnityEvent _onStartGame;
 
         public event UnityAction GameStarted

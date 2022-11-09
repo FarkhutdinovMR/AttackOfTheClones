@@ -26,7 +26,7 @@ public class Store : MonoBehaviour
     public void Init(Wallet wallet)
     {
         Wallet = wallet;
-        CreateProducts();
+        _products = _saver.PlayerData.AbilityProducts;
     }
 
     public void Buy(AbilityProduct product)
@@ -40,15 +40,7 @@ public class Store : MonoBehaviour
 
     public void Close()
     {
-        _saver.SaveAbilityProducts(Products);
         _saver.SaveSlots(_character.Inventory.Slots);
         _saver.Save();
-    }
-
-    private void CreateProducts()
-    {
-        _products = new List<AbilityProduct>();
-        foreach (AbilityProductInfo info in _productInfo)
-            _products.Add(new AbilityProduct(_saver.PlayerData.GetAbilityProductsStatus(info.Ability.GetType()), info));
     }
 }

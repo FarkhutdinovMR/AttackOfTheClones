@@ -13,8 +13,11 @@ public class YandexSaver : Saver
     {
         string jsonString = "";
         PlayerAccount.GetPlayerData((data) => jsonString = data);
-        PlayerData = JsonUtility.FromJson<Data>(jsonString);
 
+        if (string.IsNullOrEmpty(jsonString))
+            return false;
+
+        PlayerData = JsonUtility.FromJson<Data>(jsonString);
         return true;
     }
 }

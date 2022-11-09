@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Saver : MonoBehaviour
 {
     [SerializeField] private Config _defaultData;
+    [SerializeField] private AbilityProductInfo[] _productInfo;
 
     public Data PlayerData { get; protected set; } = new Data();
 
@@ -20,28 +21,11 @@ public abstract class Saver : MonoBehaviour
         return PlayerData;
     }
 
-    public void SaveGold(uint value)
-    {
-        PlayerData.Gold = value;
-    }
-
-    public void SaveCharacterLevel(CharacterLevel characterLevel)
-    {
-        PlayerData.CharacterLevel = characterLevel;
-    }
-
     public void SaveStates(IEnumerable<State> states)
     {
         PlayerData.StateDatas = new();
         foreach (State state in states)
             PlayerData.StateDatas.Add(new StateData(state.GetType(), state.Level));
-    }
-
-    public void SaveAbilityProducts(IEnumerable<AbilityProduct> products)
-    {
-        PlayerData.AbilityProductDatas = new();
-        foreach (AbilityProduct product in products)
-            PlayerData.AbilityProductDatas.Add(new AbilityProductData(product.Info.Ability.GetType(), product.IsBought));
     }
 
     public void SaveSlots(IEnumerable<Slot> slots)
@@ -61,21 +45,26 @@ public abstract class Saver : MonoBehaviour
     {
         PlayerData = new Data()
         {
-            Gold = _defaultData.CharacterStartGold,
+            Wallet = new Wallet(_defaultData.CharacterStartGold),
             CharacterLevel = new CharacterLevel(0, _defaultData.CharacterStartLevel, _defaultData.CharacterLevelUpCost),
             StateDatas = new(),
-            AbilityProductDatas = new() { new AbilityProductData(typeof(FireballAbility), true)},
             SlotDatas = new() { new SlotData(typeof(FireballAbility)), new SlotData(typeof(string)), new SlotData(typeof(string)), new SlotData(typeof(string)) }
         };
+
+        PlayerData.AbilityProducts = new List<AbilityProduct>();
+        foreach (AbilityProductInfo info in _productInfo)
+            PlayerData.AbilityProducts.Add(new AbilityProduct(false, info));
+
+        PlayerData.AbilityProducts.Find(product => product.Info.Ability.GetType() == typeof(FireballAbility)).Buy();
     }
 
     [Serializable]
     public class Data
     {
-        public uint Gold;
+        public Wallet Wallet;
         public CharacterLevel CharacterLevel;
+        public List<AbilityProduct> AbilityProducts;
         public List<StateData> StateDatas;
-        public List<AbilityProductData> AbilityProductDatas;
         public List<SlotData> SlotDatas;
 
         public uint GetStateLevel(Type type)
@@ -86,16 +75,6 @@ public abstract class Saver : MonoBehaviour
                 return 1;
 
             return result.Level;
-        }
-
-        public bool GetAbilityProductsStatus(Type type)
-        {
-            AbilityProductData result = AbilityProductDatas.Find(state => state.Type == type);
-
-            if (result == null)
-                return false;
-
-            return result.IsBought;
         }
     }
 
@@ -112,20 +91,7 @@ public abstract class Saver : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    public class AbilityProductData
-    {
-        public Type Type;
-        public bool IsBought;
-
-        public AbilityProductData(Type type, bool isBought)
-        {
-            Type = type ?? throw new ArgumentNullException(nameof(type));
-            IsBought = isBought;
-        }
-    }
-
-    [SerializeField]
+    [Serializable]
     public class SlotData
     {
         public Type Type;

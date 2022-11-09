@@ -1,5 +1,7 @@
 using System;
+using UnityEngine;
 
+[Serializable]
 public class Product
 {
     public Product(bool isBought, ProductInfo info)
@@ -8,8 +10,8 @@ public class Product
         Info = info ?? throw new ArgumentNullException(nameof(info));
     }
 
-    public bool IsBought { get; private set; }
-    public ProductInfo Info { get; private set; }
+    [field: SerializeField] public bool IsBought { get; private set; }
+    [field: SerializeField] public ProductInfo Info { get; private set; }
 
     public void Buy()
     {

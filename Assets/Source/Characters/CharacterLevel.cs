@@ -1,24 +1,20 @@
 using System;
+using UnityEngine;
 
+[Serializable]
 public class CharacterLevel
 {
-    public uint Exp { get; private set; }
-    public uint Value { get; private set; }
-    public uint LevelUpCost { get; private set; }
+    [SerializeField] private uint _exp;
+    [SerializeField] private uint _levelUpCost;
 
     public CharacterLevel(uint exp, uint value, uint levelUp)
     {
-        Exp = exp;
+        _exp = exp;
+        _levelUpCost = levelUp;
         Value = value;
-        LevelUpCost = levelUp;
     }
 
-    public CharacterLevel(CharacterLevel characterLevel)
-    {
-        Exp = characterLevel.Exp;
-        Value = characterLevel.Value;
-        LevelUpCost = characterLevel.LevelUpCost;
-    }
+    [field: SerializeField] public uint Value { get; private set; }
 
     public event Action<uint> LevelChanged;
 
@@ -28,13 +24,13 @@ public class CharacterLevel
 
         while (remain > 0)
         {
-            Exp++;
+            _exp++;
             remain--;
 
-            if (Exp >= LevelUpCost)
+            if (_exp >= _levelUpCost)
             {
                 Value++;
-                LevelUpCost += LevelUpCost;
+                _levelUpCost += _levelUpCost;
                 LevelChanged?.Invoke(Value);
             }
         }

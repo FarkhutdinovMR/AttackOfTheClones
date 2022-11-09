@@ -22,8 +22,8 @@ public class Character : MonoBehaviour
         States.Add(new AttackRadius(StateConfigs.Find(config => config.Type == StateType.AttackRadius), data.GetStateLevel(typeof(AttackRadius))));
 
         Health = new Health(config.CharacterHealth);
-        Level = new CharacterLevel(data.CharacterLevel);
-        Wallet = new Wallet(data.Gold);
+        Level = data.CharacterLevel;
+        Wallet = data.Wallet;
 
         var slots = new Slot[data.SlotDatas.Count];
         slots[0] = new Slot(_abilities.Find(ability => ability.GetType() == data.SlotDatas[0].Type), 1);

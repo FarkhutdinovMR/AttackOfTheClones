@@ -1,3 +1,6 @@
+using System;
+
+[Serializable]
 public class AbilityProduct : Product
 {
     new public AbilityProductInfo Info;

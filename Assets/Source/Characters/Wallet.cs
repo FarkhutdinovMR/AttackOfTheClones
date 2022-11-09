@@ -1,5 +1,7 @@
 using System;
+using UnityEngine;
 
+[Serializable]
 public class Wallet
 {
     public Wallet(uint gold)
@@ -7,7 +9,7 @@ public class Wallet
         Gold = gold;
     }
 
-    public uint Gold { get; private set; }
+    [field: SerializeField] public uint Gold { get; private set; }
 
     public event Action<uint> Changed;
 

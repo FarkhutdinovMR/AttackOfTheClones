@@ -14,7 +14,7 @@ namespace CompositeRoot
         [SerializeField] private LevelCompositeRoot _levelComposite;
         [SerializeField] private TextView _levelPresenter;
         [SerializeField] private HealthView _healthView;
-        [SerializeField] private PlayerPrefsSaver _save;
+        [SerializeField] private Saver _save;
         [SerializeField] private TextView _goldView;
         [SerializeField] private TextView _levelPresenter2;
         [SerializeField] private Store _store;
@@ -56,8 +56,6 @@ namespace CompositeRoot
         {
             _goldView.Render(Character.Wallet.Gold);
             _levelPresenter2.Render((int)Character.Level.Value);
-            //_storeView.Render();
-            //_abilityInventoryView.Render();
         }
 
         private void Update()
@@ -67,8 +65,6 @@ namespace CompositeRoot
 
         public void Save()
         {
-            _save.SaveGold(Character.Wallet.Gold);
-            _save.SaveCharacterLevel(Character.Level);
             _save.SaveStates(_abilityUpgrade.States);
             _save.Save();
         }
