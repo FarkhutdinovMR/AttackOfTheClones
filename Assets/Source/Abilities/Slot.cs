@@ -5,9 +5,20 @@ public class Slot
 {
     private readonly List<State> _states;
 
-    public Slot()
+    public Slot(Ability ability, uint unlockLevel)
     {
         _states = new();
+        Ability = ability;
+        UnlockLevel = unlockLevel;
+    }
+
+    public Ability Ability { get; private set; }
+    public uint UnlockLevel { get; private set; }
+    public bool IsEmpty => Ability == null;
+
+    public void Equip(Ability ability)
+    {
+        Ability = ability ?? throw new ArgumentNullException(nameof(ability));
     }
 
     public float GetValue(StateType stateType)
@@ -40,5 +51,10 @@ public class Slot
             throw new InvalidOperationException();
 
         _states.Remove(state);
+    }
+
+    public void Clear()
+    {
+        _states.Clear();
     }
 }

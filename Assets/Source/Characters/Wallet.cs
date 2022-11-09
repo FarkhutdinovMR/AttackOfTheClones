@@ -14,7 +14,7 @@ public class Wallet
     public void Add(uint gold)
     {
         Gold += gold;
-        Changed.Invoke(Gold);
+        Changed?.Invoke(Gold);
     }
 
     public bool TryBuy(uint cost)
@@ -23,7 +23,7 @@ public class Wallet
             return false;
 
         Gold -= cost;
-        Changed.Invoke(Gold);
+        Changed?.Invoke(Gold);
         return true;
     }
 }

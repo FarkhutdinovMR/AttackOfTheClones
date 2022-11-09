@@ -157,10 +157,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa200650542e0545a17ec0dc8844689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StateConfigs:
+  <StateConfigs>k__BackingField:
   - {fileID: 11400000, guid: 0538746b1a7d29849bbdee77fc5bdbb2, type: 2}
   - {fileID: 11400000, guid: b810774d083be8d47815c249eeb46043, type: 2}
   - {fileID: 11400000, guid: 01aa1fea2b9389743874101d8ecdadcb, type: 2}
+  <Icon>k__BackingField: {fileID: 21300000, guid: de629debbb984994daa432462e6cd525, type: 3}
   _icePuddle: {fileID: 5728804543415699618}
   _growSpeed: 5
   _waitBeforeDisappear: 1

@@ -3,7 +3,8 @@ using UnityEngine;
 
 public abstract class Ability : MonoBehaviour
 {
-    [field: SerializeField] public List<StateConfig> StateConfigs;
+    [field: SerializeField] public List<StateConfig> StateConfigs { get; private set; }
+    [field: SerializeField] public Sprite Icon { get; private set; }
     public List<State> States { get; private set; }
     protected Slot Slot { get; private set; }
     protected ITargetSource TargetSource { get; private set; }

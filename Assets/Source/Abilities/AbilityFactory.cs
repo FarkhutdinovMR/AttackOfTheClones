@@ -8,26 +8,48 @@ public class AbilityFactory : MonoBehaviour
     [SerializeField] private GetNearbyBot _targetSource;
 
     private List<Ability> _abilities = new();
+    private IEnumerable<Slot> _slots;
+    private Saver.Data _data;
 
     public Slot[] Slots { get; private set; }
     public IEnumerable<Ability> Abilities => _abilities;
 
-    public void Init(Saver.Data data)
+    public void Init(IEnumerable<Slot> slots, Saver.Data data)
     {
-        Slots = new Slot[_abilitiesTemplate.Length];
-
-        for (int i = 0; i < _abilitiesTemplate.Length; i++)
-        {
-            Ability newAbility = Instantiate(_abilitiesTemplate[i], transform);
-            _abilities.Add(newAbility);
-            Slots[i] = new Slot();
-            newAbility.Init(Slots[i], _targetSource, data);
-            Slots[i].AddStates(_character.States);
-            Slots[i].AddStates(newAbility.States);
-        }
+        _slots = slots;
+        _data = data;
     }
 
-    private void Start()
+    public void UpdateSlots()
+    {
+        if (_abilities.Count > 0)
+            Clear();
+
+        foreach (Slot slot in _slots)
+        {
+            if (slot.IsEmpty)
+                continue;
+
+            slot.Clear();
+            Ability newAbility = Instantiate(slot.Ability, transform);
+            newAbility.Init(slot, _targetSource, _data);
+            slot.AddStates(newAbility.States);
+            slot.AddStates(_character.States);
+            _abilities.Add(newAbility);
+        }
+
+        Use();
+    }
+
+    private void Clear()
+    {
+        foreach (Ability ability in _abilities)
+            Destroy(ability.gameObject);
+
+        _abilities.Clear();
+    }
+
+    private void Use()
     {
         foreach (IAbility ability in _abilities)
             ability.Use();

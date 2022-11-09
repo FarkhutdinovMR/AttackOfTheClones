@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CharacterHealth>k__BackingField: 100
   <CharacterStartLevel>k__BackingField: 1
-  <CharacterLevelUpCost>k__BackingField: 10
+  <CharacterStartGold>k__BackingField: 0
+  <CharacterLevelUpCost>k__BackingField: 4
   <CharacterStateStartLevel>k__BackingField: 1
   <BotHealth>k__BackingField: 10
   <RewardForBot>k__BackingField: 1

@@ -17,6 +17,9 @@ namespace CompositeRoot
         [SerializeField] private PlayerPrefsSaver _save;
         [SerializeField] private TextView _goldView;
         [SerializeField] private TextView _levelPresenter2;
+        [SerializeField] private Store _store;
+        [SerializeField] private StoreView _storeView;
+        [SerializeField] private AbilityInventoryView _abilityInventoryView;
 
         public PlayerInput Input { get; private set; }
 
@@ -27,8 +30,10 @@ namespace CompositeRoot
             Input = new PlayerInput();
             _movement.Init(Input);
             PlayerTouchInputView.Init(Input);
-            AbilityFactory.Init(data);
+            AbilityFactory.Init(Character.Inventory.Slots, data);
             _abilityUpgrade.Init(Character.States, AbilityFactory);
+            _store.Init(Character.Wallet);
+            _abilityInventoryView.Init(Character.Inventory, Character);
         }
 
         private void OnEnable()
@@ -51,6 +56,8 @@ namespace CompositeRoot
         {
             _goldView.Render(Character.Wallet.Gold);
             _levelPresenter2.Render((int)Character.Level.Value);
+            //_storeView.Render();
+            //_abilityInventoryView.Render();
         }
 
         private void Update()
