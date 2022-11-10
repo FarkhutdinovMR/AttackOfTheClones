@@ -1,57 +1,33 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class AbilityFactory : MonoBehaviour
 {
-    [SerializeField] private Ability[] _abilitiesTemplate;
-    [SerializeField] private Character _character;
-    [SerializeField] private GetNearbyBot _targetSource;
+    [SerializeField] FireballAbilityFactory _fireballFactory;
+    [SerializeField] IcePuddleAbilityFactory _icePuddleFactory;
+    [SerializeField] BallLightningFactory _ballLightningFactory;
 
-    private List<Ability> _abilities = new();
-    private IEnumerable<Slot> _slots;
-    private Saver.Data _data;
-
-    public Slot[] Slots { get; private set; }
-    public IEnumerable<Ability> Abilities => _abilities;
-
-    public void Init(IEnumerable<Slot> slots, Saver.Data data)
+    public Ability CreateAbility<T>() where T : Ability
     {
-        _slots = slots;
-        _data = data;
+        if (typeof(T) == typeof(FireballAbility))
+            return _fireballFactory.Create();
+        else if (typeof(T) == typeof(IcePuddleAbility))
+            return _icePuddleFactory.Create();
+        else if (typeof(T) == typeof(BallLightningAbility))
+            return _ballLightningFactory.Create();
+
+        return null;
     }
 
-    public void UpdateSlots()
+    public Ability CreateAbility(Type type)
     {
-        if (_abilities.Count > 0)
-            Clear();
+        if (type == typeof(FireballAbility))
+            return _fireballFactory.Create();
+        else if (type == typeof(IcePuddleAbility))
+            return _icePuddleFactory.Create();
+        else if (type == typeof(BallLightningAbility))
+            return _ballLightningFactory.Create();
 
-        foreach (Slot slot in _slots)
-        {
-            if (slot.IsEmpty)
-                continue;
-
-            slot.Clear();
-            Ability newAbility = Instantiate(slot.Ability, transform);
-            newAbility.Init(slot, _targetSource, _data);
-            slot.AddStates(newAbility.States);
-            slot.AddStates(_character.States);
-            _abilities.Add(newAbility);
-        }
-
-        Use();
-    }
-
-    private void Clear()
-    {
-        foreach (Ability ability in _abilities)
-            Destroy(ability.gameObject);
-
-        _abilities.Clear();
-    }
-
-    private void Use()
-    {
-        foreach (IAbility ability in _abilities)
-            ability.Use();
+        return null;
     }
 }

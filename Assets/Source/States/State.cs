@@ -4,15 +4,14 @@ using UnityEngine;
 [Serializable]
 public class State
 {
-    [field: SerializeField] public StateConfig Config { get; private set; }
-
-    public State(StateConfig config, uint level)
+    public State(StateConfig config)
     {
         Config = config ?? throw new ArgumentNullException(nameof(config));
-        Level = level;
+        Level = 1;
     }
 
-    public uint Level { get; private set; } = 1;
+    [field: SerializeField] public uint Level { get; private set; }
+    [field: SerializeField] public StateConfig Config { get; private set; }
     public float Value => Config.BaseValue + Level * Config.UpgradeModificator;
 
     public void Upgrade()

@@ -1,18 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Store : MonoBehaviour
 {
-    [SerializeField] private AbilityProductInfo[] _productInfo;
+    [SerializeField] private Product[] _products;
     [SerializeField] private MonoBehaviour _storeViewSource;
     [SerializeField] private Saver _saver;
     [SerializeField] private Character _character;
-
-    private List<AbilityProduct> _products;
-    public Wallet Wallet { get; private set; }
+    [SerializeField] private AbilityFactory _abilityFactory;
 
     private IStoreView _storeView => (IStoreView)_storeViewSource;
-    public IEnumerable<AbilityProduct> Products => _products;
+    public IEnumerable<Product> Products => _products;
 
     private void OnValidate()
     {
@@ -23,24 +22,17 @@ public class Store : MonoBehaviour
         }
     }
 
-    public void Init(Wallet wallet)
+    public void Buy(Product product)
     {
-        Wallet = wallet;
-        _products = _saver.PlayerData.AbilityProducts;
-    }
-
-    public void Buy(AbilityProduct product)
-    {
-        if (Wallet.TryBuy(product.Info.Cost) == false)
+        if (_character.Wallet.TryBuy(product.Cost) == false)
             return;
 
-        product.Buy();
+        _character.Inventory.AddAbility(_abilityFactory.CreateAbility(Type.GetType(product.Name)));
         _storeView.Render();
     }
 
     public void Close()
     {
-        _saver.SaveSlots(_character.Inventory.Slots);
         _saver.Save();
     }
 }

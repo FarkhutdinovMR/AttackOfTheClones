@@ -1,12 +1,6 @@
 using System;
 
-[Serializable]
-public class AbilityProduct : Product
+public class AbilityProduct<T> : Product where T : Ability
 {
-    new public AbilityProductInfo Info;
-
-    public AbilityProduct(bool isBought, AbilityProductInfo info) : base(isBought, info)
-    {
-        Info = info;
-    }
+    [NonSerialized] public T AbilityType;
 }

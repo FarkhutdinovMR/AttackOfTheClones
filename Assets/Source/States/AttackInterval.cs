@@ -1,4 +1,7 @@
+using System;
+
+[Serializable]
 public class AttackInterval : State
 {
-    public AttackInterval(StateConfig config, uint level) : base(config, level) { }
+    public AttackInterval(StateConfig config) : base(config) { }
 }

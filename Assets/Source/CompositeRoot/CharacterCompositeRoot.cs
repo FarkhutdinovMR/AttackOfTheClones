@@ -5,7 +5,7 @@ namespace CompositeRoot
     public class CharacterCompositeRoot : CompositeRoot
     {
         [field: SerializeField] public Character Character { get; private set; }
-        [field: SerializeField] public AbilityFactory AbilityFactory { get; private set; }
+        [field: SerializeField] public WeaponFactory AbilityFactory { get; private set; }
         [field: SerializeField] public PlayerTouchInputView PlayerTouchInputView { get; private set; }
         [SerializeField] private CharacterMovement _movement;
         [SerializeField] private Config _config;
@@ -30,10 +30,9 @@ namespace CompositeRoot
             Input = new PlayerInput();
             _movement.Init(Input);
             PlayerTouchInputView.Init(Input);
-            AbilityFactory.Init(Character.Inventory.Slots, data);
-            _abilityUpgrade.Init(Character.States, AbilityFactory);
-            _store.Init(Character.Wallet);
-            _abilityInventoryView.Init(Character.Inventory, Character);
+            _abilityUpgrade.Init(Character);
+            //_store.Init(Character.Wallet);
+            //_abilityInventoryView.Init(Character.Inventory, Character);
         }
 
         private void OnEnable()
@@ -54,6 +53,7 @@ namespace CompositeRoot
 
         private void Start()
         {
+            Character.enabled = true;
             _goldView.Render(Character.Wallet.Gold);
             _levelPresenter2.Render((int)Character.Level.Value);
         }
@@ -65,7 +65,6 @@ namespace CompositeRoot
 
         public void Save()
         {
-            _save.SaveStates(_abilityUpgrade.States);
             _save.Save();
         }
 

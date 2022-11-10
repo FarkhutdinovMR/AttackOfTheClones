@@ -1,21 +1,18 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Ability : MonoBehaviour
+[Serializable]
+public class Ability
 {
-    [field: SerializeField] public List<StateConfig> StateConfigs { get; private set; }
+    [field: SerializeReference] public List<State> States { get; private set; }
+    [field: SerializeReference] public Weapon Weapon { get; private set; }
     [field: SerializeField] public Sprite Icon { get; private set; }
-    public List<State> States { get; private set; }
-    protected Slot Slot { get; private set; }
-    protected ITargetSource TargetSource { get; private set; }
 
-    public void Init(Slot slot, ITargetSource targetSource, Saver.Data data)
+    protected Ability(List<State> states, Sprite icon, Weapon weapon)
     {
-        States = new();
-        Slot = slot;
-        TargetSource = targetSource;
-        Init(data);
+        States = states ?? throw new ArgumentNullException(nameof(states));
+        Icon = icon ?? throw new ArgumentNullException(nameof(icon));
+        Weapon = weapon ?? throw new ArgumentNullException(nameof(weapon));
     }
-
-    protected abstract void Init(Saver.Data data);
 }

@@ -8,6 +8,7 @@ public class Config : ScriptableObject
     [field: SerializeField] public uint CharacterStartGold { get; private set; }
     [field: SerializeField] public uint CharacterLevelUpCost { get; private set; }
     [field: SerializeField] public uint CharacterStateStartLevel { get; private set; }
+    [field: SerializeField] public uint CharacterAbilityInventoryCapacity { get; private set; }
     [field: SerializeField] public int BotHealth { get; private set; }
     [field: SerializeField] public uint RewardForBot { get; private set; }
     [field: SerializeField] public uint WaveSpawnerStartRadius { get; private set; }

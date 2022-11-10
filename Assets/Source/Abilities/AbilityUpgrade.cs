@@ -15,13 +15,18 @@ public class AbilityUpgrade : MonoBehaviour
 
     public IEnumerable<State> States => _states;
 
-    public void Init(IEnumerable<State> characterStats, AbilityFactory abilityFactory)
+    public void Init(Character character)
     {
-        foreach (Ability ability in abilityFactory.Abilities)
-            foreach (State state in ability.States)
-                _states.Add(state);
+        foreach (AbilitySlot slot in character.Inventory.Slots)
+        {
+            if (slot.IsEmpty)
+                continue;
 
-        foreach (State state in characterStats)
+            foreach (State state in slot.Ability.States)
+                _states.Add(state);
+        }
+
+        foreach (State state in character.States)
             _states.Add(state);
     }
 

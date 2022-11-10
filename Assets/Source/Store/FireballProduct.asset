@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fc542eaf6100f04a9e411b6f68f0d88, type: 3}
+  m_Script: {fileID: 11500000, guid: ce0ea05ef83211947af78ad591cef55b, type: 3}
   m_Name: FireballProduct
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Fireball
+  <Name>k__BackingField: FireballAbility
   <Cost>k__BackingField: 100
   <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
-  Ability: {fileID: 3051959675595683626, guid: 124cf0d7e3d37604f8c74bf46d0549a5, type: 3}

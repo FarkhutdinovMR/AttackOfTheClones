@@ -34,8 +34,8 @@ public class StateView : MonoBehaviour
 
     private void Render()
     {
-        _stateType.SetText(State.Config.Type.ToString());
-        _stateName.SetText(State.Config.Name + " " + State.Config.UpgradeModificator);
+        _stateType.SetText(State.Config.Name);
+        _stateName.SetText(State.GetType() + " " + State.Config.UpgradeModificator);
         _icon.sprite = State.Config.Icon;
         _stateLevel.SetText(_stateLevel.text + State.Level);
     }

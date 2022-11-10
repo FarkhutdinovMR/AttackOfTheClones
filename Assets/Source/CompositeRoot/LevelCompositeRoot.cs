@@ -130,7 +130,7 @@ namespace CompositeRoot
         private void StartGame()
         {
             _onStartGame?.Invoke();
-            _characterCompositeRoot.AbilityFactory.UpdateSlots();
+            _characterCompositeRoot.AbilityFactory.CreateWeapons();
             Resume();
         }
     }

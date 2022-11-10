@@ -1,4 +1,7 @@
+using System;
+
+[Serializable]
 public class AttackDamage : State
 {
-    public AttackDamage(StateConfig config, uint level) : base(config, level) { }
+    public AttackDamage(StateConfig config) : base(config) { }
 }

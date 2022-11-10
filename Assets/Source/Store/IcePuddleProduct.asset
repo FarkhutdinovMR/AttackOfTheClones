@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fc542eaf6100f04a9e411b6f68f0d88, type: 3}
+  m_Script: {fileID: 11500000, guid: ce0ea05ef83211947af78ad591cef55b, type: 3}
   m_Name: IcePuddleProduct
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: IcePuddle
-  <Cost>k__BackingField: 200
+  <Name>k__BackingField: IcePuddleAbility
+  <Cost>k__BackingField: 50
   <Icon>k__BackingField: {fileID: 21300000, guid: de629debbb984994daa432462e6cd525, type: 3}
-  Ability: {fileID: 8377992147441980969, guid: e7716ab064fc7f14887b1d987d87dc01, type: 3}

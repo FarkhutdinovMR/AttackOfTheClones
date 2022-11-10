@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,10 +9,11 @@ public class BuyButtonView : MonoBehaviour
     [SerializeField] private TMP_Text _cost;
     [SerializeField] private Image _icon;
 
-    public void Render(AbilityProduct abilityProduct)
+    public void Render(Product abilityProduct, Inventory inventory)
     {
-        _cost.SetText(abilityProduct.IsBought ? "" : abilityProduct.Info.Cost.ToString());
-        _button.interactable = !abilityProduct.IsBought;
-        _icon.gameObject.SetActive(!abilityProduct.IsBought);
+        bool isBought = inventory.Contain(Type.GetType(abilityProduct.Name));
+        _cost.SetText(isBought ? "" : abilityProduct.Cost.ToString());
+        _button.interactable = !isBought;
+        _icon.gameObject.SetActive(!isBought);
     }
 }
