@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ public class AbilityInventoryView : MonoBehaviour
         if (_abilityViews.Count > 0)
             Clear();
 
-        foreach (AbilitySlot slot in _character.Inventory.Slots)
+        foreach (Slot slot in _character.Inventory.Slots)
         {
             AbilitySlotView newAbilityView = Instantiate(_abilityViewTemplate, _container);
             newAbilityView.Init(slot, _character, _storeView.SelectedProduct, OnSlotSelected);
@@ -33,13 +32,12 @@ public class AbilityInventoryView : MonoBehaviour
         _abilityViews.Clear();
     }
 
-    private void OnSlotSelected(AbilitySlot slot)
+    private void OnSlotSelected(Slot slot)
     {
-        Type abilityType = Type.GetType(_storeView.SelectedProduct.Name);
-        if (_storeView.SelectedProduct == null || _character.Inventory.Contain(abilityType) == false || _character.Inventory.ContainInSlots(abilityType))
+        if (_storeView.SelectedProduct == null || _storeView.SelectedProduct.IsBought == false || _character.Inventory.ContainInSlot(_storeView.SelectedProduct))
             return;
 
-        slot.Equip(_character.Inventory.FindAbility(abilityType));
+        slot.Equip(_storeView.SelectedProduct);
         Render();
         _storeView.Render();
     }

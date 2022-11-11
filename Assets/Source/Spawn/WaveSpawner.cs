@@ -4,30 +4,32 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
-    [field: SerializeField] public int Amount { get; private set; }
     [SerializeField] private float _interval;
     [SerializeField] private float _intervalBetweenPoints;
-    [SerializeField] private AnimationCurve _waveSizeInTime;
     [SerializeField] private Transform[] _points;
 
     private ISpawnWave _spawnWave;
     private int _currentCount;
 
-    public void Init(ISpawnWave spawnWave)
+    private int _amount;
+    private int _waveSize;
+
+    public void Init(ISpawnWave spawnWave, int amount, int waveSize)
     {
         _spawnWave = spawnWave;
+        _amount = amount;
+        _waveSize = waveSize;
         StartCoroutine(SpawnWaves());
     }
 
     IEnumerator SpawnWaves()
     {
-        while(_currentCount < Amount)
+        while(_currentCount < _amount)
         {
             for (int i = 0; i < _points.Length; i++)
             {
-                int waveSize = (int)_waveSizeInTime.Evaluate((float)_currentCount / Amount);
-                waveSize = Math.Clamp(waveSize, 0, Amount - _currentCount);
-                _currentCount += _spawnWave.Spawn(waveSize, _points[i].position);
+                _waveSize = Math.Clamp(_waveSize, 0, _amount - _currentCount);
+                _currentCount += _spawnWave.Spawn(_waveSize, _points[i].position);
 
                 yield return new WaitForSeconds(_intervalBetweenPoints);
             }

@@ -5,29 +5,27 @@ using UnityEngine;
 public class AbilityUpgrade : MonoBehaviour
 {
     [SerializeField] private Transform _container;
-    [SerializeField] private StateView _stateTemplate;
+    [SerializeField] private CardView _cardTemplate;
 
-    private const int StateAmount = 3;
+    private const int CardAmount = 3;
 
-    private List<State> _states = new();
-    private List<StateView> _stateViews = new();
+    private List<UpgradeCard> _cards = new();
+    private List<CardView> _cardViews = new();
     private Action _onWindowCloseCallback;
-
-    public IEnumerable<State> States => _states;
 
     public void Init(Character character)
     {
-        foreach (AbilitySlot slot in character.Inventory.Slots)
+        foreach (Slot slot in character.Inventory.Slots)
         {
             if (slot.IsEmpty)
                 continue;
 
             foreach (State state in slot.Ability.States)
-                _states.Add(state);
+                _cards.Add(new UpgradeCard(slot.Ability.Name, state));
         }
 
         foreach (State state in character.States)
-            _states.Add(state);
+            _cards.Add(new UpgradeCard(state.Name, state));
     }
 
     public void OpenUpgradeWindow(Action onWindowCloseCallback)
@@ -35,43 +33,55 @@ public class AbilityUpgrade : MonoBehaviour
         _onWindowCloseCallback = onWindowCloseCallback;
         gameObject.SetActive(true);
 
-        if (_stateViews.Count > 0)
+        if (_cardViews.Count > 0)
             Clear();
 
-        for (int i = 0; i < StateAmount; i++)
+        for (int i = 0; i < CardAmount; i++)
         {
-            State state = GetRandomState();
-            StateView newStateView = Instantiate(_stateTemplate, _container);
-            newStateView.Init(state, OnStateUpgraded);
-            _stateViews.Add(newStateView);
+            UpgradeCard card = GetRandomState();
+            CardView newStateView = Instantiate(_cardTemplate, _container);
+            newStateView.Init(card, OnStateUpgraded);
+            _cardViews.Add(newStateView);
         }
     }
 
     private void Clear()
     {
-        foreach (StateView stateView in _stateViews)
+        foreach (CardView stateView in _cardViews)
             Destroy(stateView.gameObject);
 
-        _stateViews.Clear();
+        _cardViews.Clear();
     }
 
-    private State GetRandomState()
+    private UpgradeCard GetRandomState()
     {
         int randomStateIndex = 0;
 
         for (int i = 0; i < 10; i++)
         {
-            randomStateIndex = UnityEngine.Random.Range(0, _states.Count);
-            if (_stateViews.Find(item => item.State == _states[randomStateIndex]) == null)
+            randomStateIndex = UnityEngine.Random.Range(0, _cards.Count);
+            if (_cardViews.Find(item => item.Card.State == _cards[randomStateIndex].State) == null)
                 break;
         }
 
-        return _states[randomStateIndex];
+        return _cards[randomStateIndex];
     }
 
     private void OnStateUpgraded()
     {
         gameObject.SetActive(false);
         _onWindowCloseCallback?.Invoke();
+    }
+
+    public class UpgradeCard
+    {
+        public string Name;
+        public State State;
+
+        public UpgradeCard(string name, State state)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            State = state ?? throw new ArgumentNullException(nameof(state));
+        }
     }
 }

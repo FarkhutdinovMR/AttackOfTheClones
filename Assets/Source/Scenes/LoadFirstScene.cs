@@ -4,9 +4,11 @@ using CompositeRoot;
 public class LoadFirstScene : MonoBehaviour
 {
     [SerializeField] private SceneLoader _sceneLoader;
+    [SerializeField] private Saver _save;
 
     private void Start()
     {
-        _sceneLoader.LoadFirtsScene();
+        Saver.Data data = _save.Load();
+        _sceneLoader.Load(data.NextLevel);
     }
 }

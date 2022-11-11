@@ -7,7 +7,7 @@ namespace CompositeRoot
 {
     public class LevelCompositeRoot : CompositeRoot
     {
-        [SerializeField] private WaveSpawner _spawner;
+        [SerializeField] private Config _config;
         [SerializeField] private ProgressBarView _levelProgressView;
         [SerializeField] private TextView _currentLevelView;
         [SerializeField] private WinWndow _winWindow;
@@ -21,6 +21,8 @@ namespace CompositeRoot
         [SerializeField] private Saver _save;
         [SerializeField] private UnityEvent _onStartGame;
 
+        public int EnemyAmount { get; private set; }
+
         public event UnityAction GameStarted
         {
             add => _onStartGame.AddListener(value);
@@ -31,7 +33,8 @@ namespace CompositeRoot
 
         public override void Compose()
         {
-            DeathCounter = new Counter(_spawner.Amount);
+            EnemyAmount = (int)_config.WaveSpawnerAmount.Evaluate(_sceneLoader.CurrentSceneIndex);
+            DeathCounter = new Counter(EnemyAmount);
             _botObjectPool.Init();
             _rewardsObjectPool.Init();
         }
@@ -71,7 +74,8 @@ namespace CompositeRoot
 
         private void OnDeathCounterChanged(uint count)
         {
-            _levelProgressView.Render((float)count / _spawner.Amount);
+            float value = Convert.ToSingle(count) / EnemyAmount;
+            _levelProgressView.Render(value);
         }
 
         private void OnDeathCounterComplited()
@@ -89,6 +93,7 @@ namespace CompositeRoot
             Pause();
             uint rewardGold = DeathCounter.Value;
             _characterCompositeRoot.Character.Wallet.Add(rewardGold);
+            _save.SaveLevel(_sceneLoader.NextScene);
             _characterCompositeRoot.Save();
             _winWindow.Open(rewardGold, () =>
             {
@@ -130,7 +135,8 @@ namespace CompositeRoot
         private void StartGame()
         {
             _onStartGame?.Invoke();
-            _characterCompositeRoot.AbilityFactory.CreateWeapons();
+            _characterCompositeRoot.AbilityFactory.Create();
+            _characterCompositeRoot.AbilityUpgrade.Init(_characterCompositeRoot.Character);
             Resume();
         }
     }

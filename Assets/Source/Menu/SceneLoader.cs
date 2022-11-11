@@ -11,7 +11,7 @@ namespace CompositeRoot
         private const int _firstSceneIndex = 1;
 
         public int Amount => SceneManager.sceneCountInBuildSettings - loaderScene;
-        public int NextStage => _currentSceneIndex < Amount ? _currentSceneIndex + 1 : _firstSceneIndex;
+        public int NextScene => _currentSceneIndex < Amount ? _currentSceneIndex + 1 : _firstSceneIndex;
         public int CurrentSceneIndex => _currentSceneIndex;
 
         public override void Compose()
@@ -26,7 +26,7 @@ namespace CompositeRoot
 
         public void LoadNext()
         {
-            _currentSceneIndex = NextStage;
+            _currentSceneIndex = NextScene;
             Load(_currentSceneIndex);
         }
 

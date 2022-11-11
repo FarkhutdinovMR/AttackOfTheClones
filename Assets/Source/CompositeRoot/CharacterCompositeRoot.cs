@@ -5,12 +5,12 @@ namespace CompositeRoot
     public class CharacterCompositeRoot : CompositeRoot
     {
         [field: SerializeField] public Character Character { get; private set; }
-        [field: SerializeField] public WeaponFactory AbilityFactory { get; private set; }
+        [field: SerializeField] public AbilityFactory AbilityFactory { get; private set; }
         [field: SerializeField] public PlayerTouchInputView PlayerTouchInputView { get; private set; }
+        [field: SerializeField] public AbilityUpgrade AbilityUpgrade { get; private set; }
         [SerializeField] private CharacterMovement _movement;
         [SerializeField] private Config _config;
         [SerializeField] private Character _characterTemplate;
-        [SerializeField] private AbilityUpgrade _abilityUpgrade;
         [SerializeField] private LevelCompositeRoot _levelComposite;
         [SerializeField] private TextView _levelPresenter;
         [SerializeField] private HealthView _healthView;
@@ -30,9 +30,6 @@ namespace CompositeRoot
             Input = new PlayerInput();
             _movement.Init(Input);
             PlayerTouchInputView.Init(Input);
-            _abilityUpgrade.Init(Character);
-            //_store.Init(Character.Wallet);
-            //_abilityInventoryView.Init(Character.Inventory, Character);
         }
 
         private void OnEnable()
@@ -71,7 +68,7 @@ namespace CompositeRoot
         private void OnCharacterLevelChanged(uint level)
         {
             _levelComposite.Pause();
-            _abilityUpgrade.OpenUpgradeWindow(_levelComposite.Resume);
+            AbilityUpgrade.OpenUpgradeWindow(_levelComposite.Resume);
             _levelPresenter.Render((int)level);
             _levelPresenter2.Render((int)level);
         }

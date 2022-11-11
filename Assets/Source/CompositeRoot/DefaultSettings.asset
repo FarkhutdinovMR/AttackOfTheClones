@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72166ae23a1a14c847588c63f4794c, type: 3}
+  m_Name: DefaultSettings
+  m_EditorClassIdentifier: 
+  <FirstLevelIndex>k__BackingField: 1
+  <CharacterHealth>k__BackingField: 100
+  <CharacterStartLevel>k__BackingField: 1
+  <CharacterStartGold>k__BackingField: 0
+  <CharacterLevelUpCost>k__BackingField: 20
+  <CharacterLevelProgress>k__BackingField: 0.1
+  <CharacterStateStartLevel>k__BackingField: 1
+  <CharacterAbilityInventoryCapacity>k__BackingField: 0
+  <BotHealth>k__BackingField: 10
+  <RewardForBot>k__BackingField: 1
+  <WaveSpawnerStartRadius>k__BackingField: 2
+  <WaveSpawnerDistanceBetweenCircles>k__BackingField: 3
+  <WaveSpawnerStartAngleStep>k__BackingField: 90
+  <WaveSpawnerAmount>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 50
+      inSlope: 11.111111
+      outSlope: 11.111111
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 150
+      inSlope: 11.111111
+      outSlope: 100
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.11224453
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 11
+      value: 250
+      inSlope: 100
+      outSlope: 11.111111
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.15183406
+    - serializedVersion: 3
+      time: 20
+      value: 350
+      inSlope: 11.111111
+      outSlope: 100
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 21
+      value: 450
+      inSlope: 100
+      outSlope: 11.111111
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 30
+      value: 550
+      inSlope: 11.111111
+      outSlope: 11.111111
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <WaveSpawnerAmountInOnWave>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 10
+      inSlope: 0.3448276
+      outSlope: 0.3448276
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 30
+      value: 20
+      inSlope: 0.3448276
+      outSlope: 0.3448276
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

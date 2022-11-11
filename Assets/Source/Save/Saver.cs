@@ -1,16 +1,20 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
+using CompositeRoot;
 
 public abstract class Saver : MonoBehaviour
 {
-    [SerializeField] private Config _defaultData;
-    [SerializeField] private AbilityFactory _abilityFactory;
+    [SerializeField] private Config _config;
     [SerializeField] private Character _character;
 
     public Data PlayerData { get; protected set; } = new Data();
 
     public abstract void Save();
+
+    public void SaveLevel(int index)
+    {
+        PlayerData.NextLevel = index;
+    }
 
     protected abstract bool TryLoad();
 
@@ -26,16 +30,14 @@ public abstract class Saver : MonoBehaviour
     {
         PlayerData = new Data()
         {
-            Wallet = new Wallet(_defaultData.CharacterStartGold),
-            CharacterLevel = new CharacterLevel(0, _defaultData.CharacterStartLevel, _defaultData.CharacterLevelUpCost),
+            Wallet = new Wallet(_config.CharacterStartGold),
+            CharacterLevel = new CharacterLevel(0, _config.CharacterStartLevel, _config.CharacterLevelUpCost, _config.CharacterLevelProgress),
+            CharacterState = _character.States,
+            Inventory = _character.Inventory,
+            NextLevel = _config.FirstLevelIndex
         };
 
-        PlayerData.CharacterState = _character.GetDefaultStates();
-        var slots = new List<AbilitySlot>() { new AbilitySlot(1), new AbilitySlot(5), new AbilitySlot(10), new AbilitySlot(15) };
-        PlayerData.Inventory = new(slots);
-        Ability fireballAbility = _abilityFactory.CreateAbility<FireballAbility>();
-        PlayerData.Inventory.AddAbility(fireballAbility);
-        PlayerData.Inventory.Equip(fireballAbility, 0);
+        PlayerData.Inventory.Slots[0].Equip(PlayerData.Inventory.Abilities[0]);
     }
 
     [Serializable]
@@ -43,7 +45,8 @@ public abstract class Saver : MonoBehaviour
     {
         public Wallet Wallet;
         public CharacterLevel CharacterLevel;
-        public List<State> CharacterState;
+        public State[] CharacterState;
         public Inventory Inventory;
+        public int NextLevel;
     }
 }

@@ -10,19 +10,19 @@ public class AbilitySlotView : MonoBehaviour
     [SerializeField] private TMP_Text _lvl;
     [SerializeField] private GameObject _activeSlotIcon;
 
-    private AbilitySlot _slot;
+    private Slot _slot;
     private Character _character;
-    private Product _product;
-    private Action<AbilitySlot> _onSlotSelect;
+    private AbilityData _ability;
+    private Action<Slot> _onSlotSelect;
 
     private const string Lvl = "lvl ";
     private bool _isLock => _character.Level.Value < _slot.UnlockLevel;
 
-    public void Init(AbilitySlot slot, Character character, Product product, Action<AbilitySlot> onSlotSelect)
+    public void Init(Slot slot, Character character, AbilityData ability, Action<Slot> onSlotSelect)
     {
         _slot = slot;
         _character = character;
-        _product = product;
+        _ability = ability;
         _onSlotSelect = onSlotSelect;
     }
 
@@ -34,7 +34,7 @@ public class AbilitySlotView : MonoBehaviour
         if (_isLock)
             return;
 
-        if (_product != null && _character.Inventory.Contain(Type.GetType(_product.Name)) && _character.Inventory.ContainInSlots(Type.GetType(_product.Name)) == false)
+        if (_ability != null && _ability.IsBought && _character.Inventory.ContainInSlot(_ability) == false)
             _activeSlotIcon.SetActive(true);
 
         if (_slot.IsEmpty)

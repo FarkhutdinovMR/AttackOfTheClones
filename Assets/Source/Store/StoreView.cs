@@ -14,14 +14,14 @@ public class StoreView : MonoBehaviour, IStoreView
 
     private List<ProductView> _productViews = new();
 
-    public Product SelectedProduct { get; private set; }
+    public AbilityData SelectedProduct { get; private set; }
 
     public void Render()
     {
         if (_productViews.Count > 0)
             Clear();
 
-        foreach (Product product in _store.Products)
+        foreach (AbilityData product in _character.Inventory.Abilities)
         {
             ProductView newProductView = Instantiate(_productViewTemplate, _container);
             newProductView.Init(product, _character.Inventory, OnProductSelected);
@@ -34,7 +34,7 @@ public class StoreView : MonoBehaviour, IStoreView
         if (SelectedProduct != null)
         {
             _productInfo.Render(SelectedProduct);
-            _buyButton.Render(SelectedProduct, _character.Inventory);
+            _buyButton.Render(SelectedProduct);
         }
     }
 
@@ -59,12 +59,12 @@ public class StoreView : MonoBehaviour, IStoreView
         _productViews.Clear();
     }
 
-    private void OnProductSelected(Product product)
+    private void OnProductSelected(AbilityData ability)
     {
-        SelectedProduct = product;
+        SelectedProduct = ability;
         _productInfo.Render(SelectedProduct);
         _abilityInventoryView.Render();
-        _buyButton.Render(SelectedProduct, _character.Inventory);
+        _buyButton.Render(SelectedProduct);
     }
 
     public void OnBuyButtonClick()

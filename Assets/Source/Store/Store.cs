@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class Store : MonoBehaviour
 {
-    [SerializeField] private Product[] _products;
     [SerializeField] private MonoBehaviour _storeViewSource;
     [SerializeField] private Saver _saver;
     [SerializeField] private Character _character;
-    [SerializeField] private AbilityFactory _abilityFactory;
 
     private IStoreView _storeView => (IStoreView)_storeViewSource;
-    public IEnumerable<Product> Products => _products;
 
     private void OnValidate()
     {
@@ -22,12 +19,12 @@ public class Store : MonoBehaviour
         }
     }
 
-    public void Buy(Product product)
+    public void Buy(AbilityData ability)
     {
-        if (_character.Wallet.TryBuy(product.Cost) == false)
+        if (_character.Wallet.TryBuy(ability.Cost) == false)
             return;
 
-        _character.Inventory.AddAbility(_abilityFactory.CreateAbility(Type.GetType(product.Name)));
+        ability.Buy();
         _storeView.Render();
     }
 

@@ -9,32 +9,32 @@ public class ProductView : MonoBehaviour
     [SerializeField] private Image _background;
     [SerializeField] private Color _activeColor;
 
-    private Product _product;
+    private AbilityData _ability;
     private Inventory _inventory;
-    private Action<Product> _onSelectProductCallback;
+    private Action<AbilityData> _onSelectProductCallback;
 
-    public void Init(Product product, Inventory inventory, Action<Product> onSelectProductCallback)
+    public void Init(AbilityData ability, Inventory inventory, Action<AbilityData> onSelectProductCallback)
     {
-        _product = product ?? throw new ArgumentNullException(nameof(product));
+        _ability = ability ?? throw new ArgumentNullException(nameof(ability));
         _inventory = inventory ?? throw new ArgumentNullException(nameof(inventory));
         _onSelectProductCallback = onSelectProductCallback;
     }
 
     public void Render()
     {
-        _icon.sprite = _product.Icon;
+        _icon.sprite = _ability.Icon;
 
-        if (_inventory.Contain(Type.GetType(_product.Name)))
+        if (_ability.IsBought)
         {
             _isBoughtIcon.SetActive(true);
 
-            if (_inventory.ContainInSlots(Type.GetType(_product.Name)))
+            if (_inventory.ContainInSlot(_ability))
                 _background.color = _activeColor;
         }
     }
 
     public void OnClickButton()
     {
-        _onSelectProductCallback?.Invoke(_product);
+        _onSelectProductCallback?.Invoke(_ability);
     }
 }
