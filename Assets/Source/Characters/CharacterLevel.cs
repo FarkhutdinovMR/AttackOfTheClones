@@ -5,18 +5,18 @@ using UnityEngine;
 public class CharacterLevel
 {
     private readonly float _progress;
-    [SerializeField] private uint _exp;
     [SerializeField] private uint _levelUpCost;
 
     public CharacterLevel(uint exp, uint value, uint levelUp, float progress)
     {
-        _exp = exp;
+        Exp = exp;
         _levelUpCost = levelUp;
         Value = value;
         _progress = progress;
     }
 
-    [field: SerializeField] public uint Value { get; private set; }
+    [SerializeField] public uint Value { get; private set; }
+    [SerializeField] public uint Exp { get; private set; }
 
     public event Action<uint> LevelChanged;
 
@@ -26,14 +26,14 @@ public class CharacterLevel
 
         while (remain > 0)
         {
-            _exp++;
+            Exp++;
             remain--;
 
-            if (_exp >= _levelUpCost)
+            if (Exp >= _levelUpCost)
             {
                 Value++;
                 _levelUpCost += (uint)(_levelUpCost * _progress);
-                _exp = 0;
+                Exp = 0;
                 LevelChanged?.Invoke(Value);
             }
         }

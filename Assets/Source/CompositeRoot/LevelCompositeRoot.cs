@@ -1,3 +1,4 @@
+using Agava.YandexGames;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace CompositeRoot
         [SerializeField] private RewardObjectPool _rewardsObjectPool;
         [SerializeField] private float _waitTimeAfterLevelComplete;
         [SerializeField] private Saver _save;
+        [SerializeField] private LeaderboardView _leaderboardView;
         [SerializeField] private UnityEvent _onStartGame;
 
         public int EnemyAmount { get; private set; }
@@ -55,9 +57,10 @@ namespace CompositeRoot
 
         private void Start()
         {
+            _leaderboardView.Show();
             _currentLevelView.Render(_sceneLoader.CurrentSceneIndex);
-            Pause();
             StartCoroutine(WaitMoveInput(StartGame));
+            Pause();
         }
 
         public void Pause()
@@ -100,6 +103,10 @@ namespace CompositeRoot
                 Resume();
                 _sceneLoader.LoadNext();
             });
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+            Leaderboard.SetScore("Leaderboard", (int)_characterCompositeRoot.Character.Level.Exp);
+#endif
         }
 
         private void GameOver()

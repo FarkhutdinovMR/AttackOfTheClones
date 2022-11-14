@@ -16,7 +16,7 @@ MonoBehaviour:
   <CharacterHealth>k__BackingField: 100
   <CharacterStartLevel>k__BackingField: 1
   <CharacterStartGold>k__BackingField: 0
-  <CharacterLevelUpCost>k__BackingField: 20
+  <CharacterLevelUpCost>k__BackingField: 30
   <CharacterLevelProgress>k__BackingField: 0.1
   <CharacterStateStartLevel>k__BackingField: 1
   <CharacterAbilityInventoryCapacity>k__BackingField: 0
@@ -91,17 +91,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 10
-      inSlope: 0.3448276
-      outSlope: 0.3448276
+      inSlope: 0.34706232
+      outSlope: 0.34706232
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 28.529959
+      value: 19.554611
+      inSlope: 0.34706232
+      outSlope: 0.3250197
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 30
-      value: 20
-      inSlope: 0.3448276
-      outSlope: 0.3448276
+      value: 30
+      inSlope: 7.1055074
+      outSlope: 7.1055074
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334

@@ -1,6 +1,7 @@
+#pragma warning disable
+
 using Agava.YandexGames;
 using System;
-using System.Collections;
 using UnityEngine;
 
 public class YandexAd : MonoBehaviour
@@ -8,20 +9,6 @@ public class YandexAd : MonoBehaviour
     private Action _onEndCallback;
     private Action<bool> _onVideoAdCallback;
     private bool _isRewarded;
-
-    private void Awake()
-    {
-        YandexGamesSdk.CallbackLogging = true;
-    }
-
-    private IEnumerator Start()
-    {
-#if !UNITY_WEBGL || UNITY_EDITOR
-        yield break;
-#endif
-
-        yield return YandexGamesSdk.Initialize();
-    }
 
     public void ShowInterstitialAd(Action OnEndCallback)
     {
