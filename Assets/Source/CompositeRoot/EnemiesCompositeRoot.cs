@@ -17,7 +17,7 @@ namespace CompositeRoot
         {
             var botSpawner = new BotSpawner(_botObjectPool, _characterCompositeRoot.Character, _level.DeathCounter, _rewardObjectPool);
             var waveInCircle = new SpawnWaveInCircle(_config.WaveSpawnerStartRadius, _config.WaveSpawnerDistanceBetweenCircles, _config.WaveSpawnerStartAngleStep, botSpawner);
-            _waveSpawner.Init(waveInCircle, _level.EnemyAmount, (int)_config.WaveSpawnerAmountInOnWave.Evaluate(_sceneLoader.CurrentSceneIndex));
+            _waveSpawner.Init(waveInCircle, _level.EnemyAmount, (int)_config.WaveSpawnerAmountInOnWave.Evaluate(_sceneLoader.CurrentSceneIndex), _config.WaveSpawnerInterval.Evaluate(_sceneLoader.CurrentSceneIndex));
         }
     }
 }

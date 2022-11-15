@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
-    [SerializeField] private float _interval;
     [SerializeField] private float _intervalBetweenPoints;
     [SerializeField] private Transform[] _points;
 
@@ -13,12 +12,14 @@ public class WaveSpawner : MonoBehaviour
 
     private int _amount;
     private int _waveSize;
+    private float _interval;
 
-    public void Init(ISpawnWave spawnWave, int amount, int waveSize)
+    public void Init(ISpawnWave spawnWave, int amount, int waveSize, float interval)
     {
         _spawnWave = spawnWave;
         _amount = amount;
         _waveSize = waveSize;
+        _interval = interval;
         StartCoroutine(SpawnWaves());
     }
 

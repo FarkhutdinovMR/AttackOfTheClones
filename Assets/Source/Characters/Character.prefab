@@ -73,57 +73,57 @@ MonoBehaviour:
   <States>k__BackingField:
   - <Name>k__BackingField: Attack damage
     <StateType>k__BackingField: 0
-    <BaseValue>k__BackingField: 1
+    <BaseValue>k__BackingField: 0.5
     <MaxLevel>k__BackingField: 100
     <UpgradeModificator>k__BackingField: 0.1
-    <Icon>k__BackingField: {fileID: 21300000, guid: cc1940d6befa78a44aaa92ecf8644d76, type: 3}
+    <Icon>k__BackingField: {fileID: 21300000, guid: 455d317bd36c5444483f77940660f34b, type: 3}
     <Level>k__BackingField: 1
   - <Name>k__BackingField: Attack radius
     <StateType>k__BackingField: 1
     <BaseValue>k__BackingField: 1
     <MaxLevel>k__BackingField: 100
     <UpgradeModificator>k__BackingField: 0.1
-    <Icon>k__BackingField: {fileID: 21300000, guid: 3191730e352f0497aa312254cbdd9df8, type: 3}
+    <Icon>k__BackingField: {fileID: 21300000, guid: 0d985ffdccc2e4a5c971f7007d7c47af, type: 3}
     <Level>k__BackingField: 1
   - <Name>k__BackingField: Attack interval
     <StateType>k__BackingField: 2
     <BaseValue>k__BackingField: 1
     <MaxLevel>k__BackingField: 100
     <UpgradeModificator>k__BackingField: -0.05
-    <Icon>k__BackingField: {fileID: 21300000, guid: 46d84f4d841ad44fea3559615f6ed9d2, type: 3}
+    <Icon>k__BackingField: {fileID: 21300000, guid: e6a3754ae880b4756aa648bd237ef3d7, type: 3}
     <Level>k__BackingField: 1
   <Inventory>k__BackingField:
     <Abilities>k__BackingField:
     - <Name>k__BackingField: Fireball
-      <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
+      <Icon>k__BackingField: {fileID: 21300000, guid: 2982efa463537a5418694bfddc718514, type: 3}
       <Cost>k__BackingField: 100
       <Template>k__BackingField: {fileID: 3051959675595683626, guid: 124cf0d7e3d37604f8c74bf46d0549a5, type: 3}
       <IsBought>k__BackingField: 1
       <States>k__BackingField:
       - <Name>k__BackingField: Attack damage
         <StateType>k__BackingField: 0
-        <BaseValue>k__BackingField: 5
+        <BaseValue>k__BackingField: 6
         <MaxLevel>k__BackingField: 100
-        <UpgradeModificator>k__BackingField: 1
-        <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
+        <UpgradeModificator>k__BackingField: 0.5
+        <Icon>k__BackingField: {fileID: 21300000, guid: 2982efa463537a5418694bfddc718514, type: 3}
         <Level>k__BackingField: 1
       - <Name>k__BackingField: Attack radius
         <StateType>k__BackingField: 1
-        <BaseValue>k__BackingField: 3
+        <BaseValue>k__BackingField: 2
         <MaxLevel>k__BackingField: 100
         <UpgradeModificator>k__BackingField: 0.1
-        <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
+        <Icon>k__BackingField: {fileID: 21300000, guid: 2982efa463537a5418694bfddc718514, type: 3}
         <Level>k__BackingField: 1
       - <Name>k__BackingField: Attack interval
         <StateType>k__BackingField: 2
         <BaseValue>k__BackingField: 1
         <MaxLevel>k__BackingField: 100
-        <UpgradeModificator>k__BackingField: -0.1
-        <Icon>k__BackingField: {fileID: 21300000, guid: 4a8b11548ae1ade4ba8602f9191f1807, type: 3}
+        <UpgradeModificator>k__BackingField: -0.05
+        <Icon>k__BackingField: {fileID: 21300000, guid: 2982efa463537a5418694bfddc718514, type: 3}
         <Level>k__BackingField: 1
     - <Name>k__BackingField: IcePuddle
       <Icon>k__BackingField: {fileID: 21300000, guid: de629debbb984994daa432462e6cd525, type: 3}
-      <Cost>k__BackingField: 150
+      <Cost>k__BackingField: 30
       <Template>k__BackingField: {fileID: 8377992147441980969, guid: e7716ab064fc7f14887b1d987d87dc01, type: 3}
       <IsBought>k__BackingField: 0
       <States>k__BackingField:
@@ -131,49 +131,49 @@ MonoBehaviour:
         <StateType>k__BackingField: 0
         <BaseValue>k__BackingField: 3
         <MaxLevel>k__BackingField: 100
-        <UpgradeModificator>k__BackingField: 0.3
+        <UpgradeModificator>k__BackingField: 0.5
         <Icon>k__BackingField: {fileID: 21300000, guid: de629debbb984994daa432462e6cd525, type: 3}
         <Level>k__BackingField: 1
       - <Name>k__BackingField: Attack radius
         <StateType>k__BackingField: 1
         <BaseValue>k__BackingField: 6
         <MaxLevel>k__BackingField: 100
-        <UpgradeModificator>k__BackingField: 0.2
+        <UpgradeModificator>k__BackingField: 0.25
         <Icon>k__BackingField: {fileID: 21300000, guid: de629debbb984994daa432462e6cd525, type: 3}
         <Level>k__BackingField: 1
       - <Name>k__BackingField: Attack interval
         <StateType>k__BackingField: 2
-        <BaseValue>k__BackingField: 1
+        <BaseValue>k__BackingField: 1.5
         <MaxLevel>k__BackingField: 100
         <UpgradeModificator>k__BackingField: -0.1
         <Icon>k__BackingField: {fileID: 21300000, guid: de629debbb984994daa432462e6cd525, type: 3}
         <Level>k__BackingField: 1
     - <Name>k__BackingField: BallLightning
-      <Icon>k__BackingField: {fileID: 21300000, guid: dadfe4db9fb8c594abf23febe42df5ef, type: 3}
-      <Cost>k__BackingField: 400
+      <Icon>k__BackingField: {fileID: 21300000, guid: a943077fe1913d349a50a7d8dec25b2a, type: 3}
+      <Cost>k__BackingField: 150
       <Template>k__BackingField: {fileID: 2616630335025224146, guid: cdff3876ff21ac042840ab986f8bc8dc, type: 3}
       <IsBought>k__BackingField: 0
       <States>k__BackingField:
       - <Name>k__BackingField: Attack damage
         <StateType>k__BackingField: 0
-        <BaseValue>k__BackingField: 3
+        <BaseValue>k__BackingField: 2
         <MaxLevel>k__BackingField: 100
         <UpgradeModificator>k__BackingField: 1
-        <Icon>k__BackingField: {fileID: 21300000, guid: dadfe4db9fb8c594abf23febe42df5ef, type: 3}
+        <Icon>k__BackingField: {fileID: 21300000, guid: a943077fe1913d349a50a7d8dec25b2a, type: 3}
         <Level>k__BackingField: 1
       - <Name>k__BackingField: Attack radius
         <StateType>k__BackingField: 1
         <BaseValue>k__BackingField: 4
         <MaxLevel>k__BackingField: 100
         <UpgradeModificator>k__BackingField: 0.2
-        <Icon>k__BackingField: {fileID: 21300000, guid: dadfe4db9fb8c594abf23febe42df5ef, type: 3}
+        <Icon>k__BackingField: {fileID: 21300000, guid: a943077fe1913d349a50a7d8dec25b2a, type: 3}
         <Level>k__BackingField: 1
       - <Name>k__BackingField: Attack interval
         <StateType>k__BackingField: 2
-        <BaseValue>k__BackingField: 6
+        <BaseValue>k__BackingField: 7
         <MaxLevel>k__BackingField: 100
         <UpgradeModificator>k__BackingField: -0.1
-        <Icon>k__BackingField: {fileID: 21300000, guid: dadfe4db9fb8c594abf23febe42df5ef, type: 3}
+        <Icon>k__BackingField: {fileID: 21300000, guid: a943077fe1913d349a50a7d8dec25b2a, type: 3}
         <Level>k__BackingField: 1
     <Slots>k__BackingField:
     - <Ability>k__BackingField:
@@ -181,13 +181,13 @@ MonoBehaviour:
       <UnlockLevel>k__BackingField: 1
     - <Ability>k__BackingField:
         rid: -2
-      <UnlockLevel>k__BackingField: 20
+      <UnlockLevel>k__BackingField: 10
     - <Ability>k__BackingField:
         rid: -2
-      <UnlockLevel>k__BackingField: 40
+      <UnlockLevel>k__BackingField: 30
     - <Ability>k__BackingField:
         rid: -2
-      <UnlockLevel>k__BackingField: 60
+      <UnlockLevel>k__BackingField: 50
   references:
     version: 2
     RefIds:
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f64d39c48ed2c44b94d5ff509463b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 15
+  _radius: 10
 --- !u!114 &1596433707
 MonoBehaviour:
   m_ObjectHideFlags: 0

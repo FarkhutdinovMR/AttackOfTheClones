@@ -7,6 +7,7 @@ public class BallLightning : MonoBehaviour
     [SerializeField] private float _attackFrequence;
     [SerializeField] private Lightning _lightningTemplate;
     [SerializeField] private float _lifeTime = 6f;
+    [SerializeField] private AudioSource _audioSource;
 
     private float _radius;
     private int _damage;
@@ -34,5 +35,7 @@ public class BallLightning : MonoBehaviour
             Lightning newLightning = Instantiate(_lightningTemplate, transform);
             newLightning.Init(_damage, bot.transform);
         }
+
+        _audioSource.Play();
     }
 }

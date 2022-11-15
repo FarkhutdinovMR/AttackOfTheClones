@@ -18,4 +18,5 @@ public class Config : ScriptableObject
     [field: SerializeField] public uint WaveSpawnerStartAngleStep { get; private set; }
     [field: SerializeField] public AnimationCurve WaveSpawnerAmount { get; private set; }
     [field: SerializeField] public AnimationCurve WaveSpawnerAmountInOnWave { get; private set; }
+    [field: SerializeField] public AnimationCurve WaveSpawnerInterval { get; private set; }
 }

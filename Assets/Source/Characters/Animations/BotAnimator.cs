@@ -13,6 +13,11 @@ public class BotAnimator : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        _animator.SetFloat(AnimatorCharacterController.Params.Offset, Random.Range(0f, 1f));
+    }
+
     private void Start()
     {
         _animator.SetFloat(AnimatorCharacterController.Params.Offset, Random.Range(0f, 1f));

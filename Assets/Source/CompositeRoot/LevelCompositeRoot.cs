@@ -39,6 +39,7 @@ namespace CompositeRoot
             DeathCounter = new Counter(EnemyAmount);
             _botObjectPool.Init();
             _rewardsObjectPool.Init();
+            AudioListener.pause = _save.PlayerData.IsSoundMute;
         }
 
         private void OnEnable()
@@ -94,9 +95,10 @@ namespace CompositeRoot
         private void CompleteLevel()
         {
             Pause();
-            uint rewardGold = DeathCounter.Value;
+            uint rewardGold = DeathCounter.Value / 2;
             _characterCompositeRoot.Character.Wallet.Add(rewardGold);
             _save.SaveLevel(_sceneLoader.NextScene);
+            _save.PlayerData.IsSoundMute = AudioListener.pause;
             _characterCompositeRoot.Save();
             _winWindow.Open(rewardGold, () =>
             {
@@ -141,10 +143,10 @@ namespace CompositeRoot
 
         private void StartGame()
         {
-            _onStartGame?.Invoke();
             _characterCompositeRoot.AbilityFactory.Create();
             _characterCompositeRoot.AbilityUpgrade.Init(_characterCompositeRoot.Character);
             Resume();
+            _onStartGame?.Invoke();
         }
     }
 }
