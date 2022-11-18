@@ -7,9 +7,10 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private float _intervalBetweenPoints;
     [SerializeField] private Transform[] _points;
 
+    public int EnemyAmount { get; private set; }
+
     private ISpawnWave _spawnWave;
     private int _currentCount;
-
     private int _amount;
     private int _waveSize;
     private float _interval;

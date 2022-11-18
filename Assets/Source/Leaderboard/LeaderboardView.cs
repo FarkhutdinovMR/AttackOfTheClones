@@ -15,13 +15,6 @@ public class LeaderboardView : MonoBehaviour
 
     public void Show()
     {
-#if !UNITY_WEBGL || UNITY_EDITOR
-        return;
-#endif
-
-        if (YandexGamesSdk.IsInitialized == false)
-            return;
-
         ShowPlayerScore();
         CreateLeaderboardList();
     }

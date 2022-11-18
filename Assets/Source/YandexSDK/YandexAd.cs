@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class YandexAd : MonoBehaviour
 {
+    [SerializeField] private Audio _audio;
+
     private Action _onEndCallback;
     private Action<bool> _onVideoAdCallback;
     private bool _isRewarded;
@@ -19,7 +21,7 @@ public class YandexAd : MonoBehaviour
         return;
 #endif
 
-        InterstitialAd.Show(null, OnInterstitialAdClose, OnInterstitialAdError, OnInterstitialAdOffline);
+        InterstitialAd.Show(OnInterstitialAdOpen, OnInterstitialAdClose, OnInterstitialAdError, OnInterstitialAdOffline);
     }
 
     public void ShowVideoAd(Action<bool> onVideoAdCallback)
@@ -32,12 +34,18 @@ public class YandexAd : MonoBehaviour
 #endif
 
         _isRewarded = false;
-        VideoAd.Show(null, OnVideoAdRewarded, OnVideoAdClose, OnVideoAdError);
+        VideoAd.Show(OnVideoAdOpen, OnVideoAdRewarded, OnVideoAdClose, OnVideoAdError);
+    }
+
+    private void OnInterstitialAdOpen()
+    {
+        _audio.AddMute();
     }
 
     private void OnInterstitialAdClose(bool value)
     {
         _onEndCallback?.Invoke();
+        _audio.RemoveMute();
     }
 
     private void OnInterstitialAdError(string value)
@@ -50,6 +58,11 @@ public class YandexAd : MonoBehaviour
         _onEndCallback?.Invoke();
     }
 
+    private void OnVideoAdOpen()
+    {
+        _audio.AddMute();
+    }
+
     private void OnVideoAdRewarded()
     {
         _isRewarded = true;
@@ -58,7 +71,8 @@ public class YandexAd : MonoBehaviour
     private void OnVideoAdClose()
     {
         _onVideoAdCallback?.Invoke(_isRewarded);
-    }
+        _audio.RemoveMute();
+}
 
     private void OnVideoAdError(string error)
     {

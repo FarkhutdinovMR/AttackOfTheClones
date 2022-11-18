@@ -40,6 +40,7 @@ public class StoreView : MonoBehaviour, IStoreView
 
     public void OnStoreButtonClick()
     {
+        SelectedProduct = _character.Inventory.Abilities[0];
         gameObject.SetActive(true);
         Render();
         _abilityInventoryView.Render();

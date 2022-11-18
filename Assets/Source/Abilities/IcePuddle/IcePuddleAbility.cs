@@ -7,6 +7,7 @@ public class IcePuddleAbility : Ability
     [SerializeField] private float _growSpeed = 1f;
     [SerializeField] private float _waitBeforeDisappear = 1f;
     [SerializeField] private ParticleSystem[] _particleSystems;
+    [SerializeField] private AudioSource _soundFX;
 
     public override void Use()
     {
@@ -21,6 +22,7 @@ public class IcePuddleAbility : Ability
             _icePuddle.Reset();
             PlayFX();
             float puddleSize = 0f;
+            _soundFX.Play();
 
             while (puddleSize < Slot.GetValue(StateType.Radius))
             {

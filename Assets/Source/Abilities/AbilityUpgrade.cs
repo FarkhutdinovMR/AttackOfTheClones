@@ -6,6 +6,8 @@ public class AbilityUpgrade : MonoBehaviour
 {
     [SerializeField] private Transform _container;
     [SerializeField] private CardView _cardTemplate;
+    [SerializeField] private TextView _levelPresenter;
+    [SerializeField] private Character _character;
 
     private const int CardAmount = 3;
 
@@ -13,9 +15,9 @@ public class AbilityUpgrade : MonoBehaviour
     private List<CardView> _cardViews = new();
     private Action _onWindowCloseCallback;
 
-    public void Init(Character character)
+    public void Init()
     {
-        foreach (Slot slot in character.Inventory.Slots)
+        foreach (Slot slot in _character.Inventory.Slots)
         {
             if (slot.IsEmpty)
                 continue;
@@ -24,7 +26,7 @@ public class AbilityUpgrade : MonoBehaviour
                 _cards.Add(new UpgradeCard(slot.Ability.Name, state));
         }
 
-        foreach (State state in character.States)
+        foreach (State state in _character.States)
             _cards.Add(new UpgradeCard(state.Name, state));
     }
 
@@ -32,6 +34,7 @@ public class AbilityUpgrade : MonoBehaviour
     {
         _onWindowCloseCallback = onWindowCloseCallback;
         gameObject.SetActive(true);
+        _levelPresenter.Render(_character.Level.Value);
 
         if (_cardViews.Count > 0)
             Clear();

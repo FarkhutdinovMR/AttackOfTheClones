@@ -15,7 +15,6 @@ public class AbilitySlotView : MonoBehaviour
     private AbilityData _ability;
     private Action<Slot> _onSlotSelect;
 
-    private const string Lvl = "lvl ";
     private bool _isLock => _character.Level.Value < _slot.UnlockLevel;
 
     public void Init(Slot slot, Character character, AbilityData ability, Action<Slot> onSlotSelect)
@@ -29,7 +28,7 @@ public class AbilitySlotView : MonoBehaviour
     public void Render()
     {
         _lock.SetActive(_isLock);
-        _lvl.SetText(Lvl + _slot.UnlockLevel.ToString());
+        _lvl.SetText(_slot.UnlockLevel.ToString());
 
         if (_isLock)
             return;

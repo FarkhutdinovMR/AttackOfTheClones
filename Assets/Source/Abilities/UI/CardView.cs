@@ -1,3 +1,4 @@
+using Lean.Localization;
 using System;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class CardView : MonoBehaviour
     [SerializeField] private Image _icon;
     [SerializeField] private TMP_Text _stateLevel;
     [SerializeField] private Button _selectButton;
+
+    private const string Lvl = "Lvl";
 
     private Action Completed;
 
@@ -34,11 +37,18 @@ public class CardView : MonoBehaviour
 
     private void Render()
     {
-        _stateType.SetText(Card.Name);
+        string localizedName = LeanLocalization.GetTranslationText(Card.Name, Card.Name);
+        _stateType.SetText(localizedName);
+
+        string localizedStateType = Card.State.StateType.ToString();
+        localizedStateType = LeanLocalization.GetTranslationText(localizedStateType, localizedStateType);
         string sign = Card.State.UpgradeModificator > 0 ? "+" : "";
-        _stateName.SetText($"{Card.State.StateType}  {sign}{Card.State.UpgradeModificator}");
+        _stateName.SetText($"{localizedStateType}{sign}{Card.State.UpgradeModificator}");
+
+        string localizedLvl = LeanLocalization.GetTranslationText(Lvl, Lvl);
+        _stateLevel.SetText($"{localizedLvl} {Card.State.Level}");
+
         _icon.sprite = Card.State.Icon;
-        _stateLevel.SetText(_stateLevel.text + Card.State.Level);
     }
 
     private void OnSelectButtonClicked()

@@ -30,11 +30,11 @@ public abstract class Saver : MonoBehaviour
         PlayerData = new Data()
         {
             Wallet = new Wallet(_config.CharacterStartGold),
-            CharacterLevel = new Score(0, _config.CharacterStartLevel, _config.CharacterLevelUpCost, _config.CharacterLevelProgress),
+            CharacterLevel = new CharacterLevel(_config.CharacterStartLevel, 0, 0, _config.CharacterLevelUpCost, _config.CharacterLevelProgress),
             CharacterState = _character.States,
             Inventory = _character.Inventory,
             NextLevel = _config.FirstLevelIndex,
-            IsSoundMute = false
+            IsMute = false
         };
 
         PlayerData.Inventory.Slots[0].Equip(PlayerData.Inventory.Abilities[0]);
@@ -44,10 +44,10 @@ public abstract class Saver : MonoBehaviour
     public class Data
     {
         public Wallet Wallet;
-        public Score CharacterLevel;
+        public CharacterLevel CharacterLevel;
         public State[] CharacterState;
         public Inventory Inventory;
         public int NextLevel;
-        public bool IsSoundMute;
+        public bool IsMute;
     }
 }

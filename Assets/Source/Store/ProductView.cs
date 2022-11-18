@@ -7,7 +7,7 @@ public class ProductView : MonoBehaviour
     [SerializeField] private Image _icon;
     [SerializeField] private GameObject _isBoughtIcon;
     [SerializeField] private Image _background;
-    [SerializeField] private Color _activeColor;
+    [SerializeField] private Sprite _activeAbilitySlot;
 
     private AbilityData _ability;
     private Inventory _inventory;
@@ -29,7 +29,7 @@ public class ProductView : MonoBehaviour
             _isBoughtIcon.SetActive(true);
 
             if (_inventory.ContainInSlot(_ability))
-                _background.color = _activeColor;
+                _background.sprite = _activeAbilitySlot;
         }
     }
 
