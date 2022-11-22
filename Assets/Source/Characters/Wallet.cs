@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class Wallet
+public class Wallet : IWallet
 {
     public Wallet(uint gold)
     {
@@ -11,12 +11,9 @@ public class Wallet
 
     [field: SerializeField] public uint Gold { get; private set; }
 
-    public event Action<uint> Changed;
-
     public void Add(uint gold)
     {
         Gold += gold;
-        Changed?.Invoke(Gold);
     }
 
     public bool TryBuy(uint cost)
@@ -25,7 +22,11 @@ public class Wallet
             return false;
 
         Gold -= cost;
-        Changed?.Invoke(Gold);
         return true;
+    }
+
+    public void ShowGold(IWalletView walletView)
+    {
+        walletView.Render(Gold);
     }
 }

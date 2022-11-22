@@ -7,6 +7,8 @@ public class CharacterLevel
     [SerializeField] private float _progress;
     [SerializeField] private uint _levelUpCost;
 
+    private IGame _game;
+
     public CharacterLevel(uint value, uint exp, uint score, uint levelUp, float progress)
     {
         Value = value;
@@ -20,8 +22,6 @@ public class CharacterLevel
     [field: SerializeField] public uint Score { get; private set; }
     [field: SerializeField] public uint Exp { get; private set; }
 
-    public event Action<uint> LevelChanged;
-
     public void AddExp(uint value)
     {
         uint remain = value;
@@ -31,14 +31,22 @@ public class CharacterLevel
             remain--;
 
             if (Exp >= _levelUpCost)
-            {
-                Value++;
-                _levelUpCost += (uint)(_levelUpCost * _progress);
-                Exp = 0;
-                LevelChanged?.Invoke(Value);
-            }
+                LevelUp();
         }
 
         Score += value;
+    }
+
+    public void SetGame(IGame game)
+    {
+        _game = game;
+    }
+
+    private void LevelUp()
+    {
+        Value++;
+        _levelUpCost += (uint)(_levelUpCost * _progress);
+        Exp = 0;
+        _game.UpgradeCharacter();
     }
 }

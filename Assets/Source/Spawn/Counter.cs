@@ -1,25 +1,20 @@
 using System;
 
-public class Counter
+public class Counter : ICounter
 {
-    private readonly int _total;
-
-    public uint Value { get; private set; }
-
     public Counter(int total)
     {
-        _total = total;
+        Total = total;
     }
 
-    public event Action<uint> Changed;
-    public event Action Complited;
+    public int Total { get; private set; }
+    public uint Value { get; private set; }
 
-    public void Increase()
+    public virtual void Increase()
     {
-        Value++;
-        Changed?.Invoke(Value);
+        if (Value >= Total)
+            throw new InvalidOperationException();
 
-        if (Value >= _total)
-            Complited?.Invoke();
+        Value++;
     }
 }

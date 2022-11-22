@@ -1,35 +1,30 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class Store : MonoBehaviour
+public class Store : IStore
 {
-    [SerializeField] private MonoBehaviour _storeViewSource;
-    [SerializeField] private Saver _saver;
-    [SerializeField] private Character _character;
+    private readonly Inventory _inventory;
+    private readonly Wallet _wallet;
 
-    private IStoreView _storeView => (IStoreView)_storeViewSource;
-
-    private void OnValidate()
+    public Store(Inventory inventory, Wallet wallet)
     {
-        if (_storeViewSource && !(_storeViewSource is IStoreView))
-        {
-            Debug.LogError(_storeViewSource + " not implement " + nameof(IStoreView));
-            _storeViewSource = null;
-        }
+        _inventory = inventory ?? throw new ArgumentNullException(nameof(inventory));
+        _wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
     }
+
+    public IEnumerable<AbilityData> Products => _inventory.Abilities;
 
     public void Buy(AbilityData ability)
     {
-        if (_character.Wallet.TryBuy(ability.Cost) == false)
+        if (_wallet.TryBuy(ability.Cost) == false)
             return;
 
         ability.Buy();
-        _storeView.Render();
     }
+}
 
-    public void Close()
-    {
-        _saver.Save();
-    }
+public interface IStore
+{
+    void Buy(AbilityData ability);
+    IEnumerable<AbilityData> Products { get; }
 }

@@ -10,11 +10,6 @@ public abstract class Saver : MonoBehaviour
 
     public abstract void Save();
 
-    public void SaveLevel(int index)
-    {
-        PlayerData.NextLevel = index;
-    }
-
     protected abstract bool TryLoad();
 
     public virtual Data Load()

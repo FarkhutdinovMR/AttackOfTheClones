@@ -5,10 +5,10 @@ public class BotSpawner : ISpawner
 {
     private readonly BotObjectPool _pool;
     private readonly Character _character;  
-    private readonly Counter _deathCounter;
+    private readonly ICounter _deathCounter;
     private readonly RewardObjectPool _rewardObjectPool;
 
-    public BotSpawner(BotObjectPool pool, Character character, Counter deathCounter, RewardObjectPool rewardObjectPool)
+    public BotSpawner(BotObjectPool pool, Character character, ICounter deathCounter, RewardObjectPool rewardObjectPool)
     {
         _pool = pool ?? throw new ArgumentNullException(nameof(pool));
         _character = character ?? throw new ArgumentNullException(nameof(character));
@@ -24,11 +24,6 @@ public class BotSpawner : ISpawner
 
         bot.transform.SetPositionAndRotation(position, Quaternion.identity);
         bot.gameObject.SetActive(true);
-
-        //if (bot.Health != null)
-        //    bot.Ressurect();
-        //else
-        //    bot.Init(_character, _deathCounter, _rewardObjectPool);
         bot.Init(_character, _deathCounter, _rewardObjectPool);
 
         return true;

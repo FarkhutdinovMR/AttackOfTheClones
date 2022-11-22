@@ -11,7 +11,7 @@ public class LeaderboardView : MonoBehaviour
     [SerializeField] private int MaxAmount = 9;
     [SerializeField] private PlayerRankingView _playerRank;
 
-    private const string LeaderboardName = "Leaderboard";
+    public const string LeaderboardName = "Leaderboard";
 
     public void Show()
     {

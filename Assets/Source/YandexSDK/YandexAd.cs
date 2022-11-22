@@ -21,6 +21,7 @@ public class YandexAd : MonoBehaviour
         return;
 #endif
 
+        _audio.AddMute();
         InterstitialAd.Show(OnInterstitialAdOpen, OnInterstitialAdClose, OnInterstitialAdError, OnInterstitialAdOffline);
     }
 
@@ -37,10 +38,7 @@ public class YandexAd : MonoBehaviour
         VideoAd.Show(OnVideoAdOpen, OnVideoAdRewarded, OnVideoAdClose, OnVideoAdError);
     }
 
-    private void OnInterstitialAdOpen()
-    {
-        _audio.AddMute();
-    }
+    private void OnInterstitialAdOpen() { }
 
     private void OnInterstitialAdClose(bool value)
     {
@@ -51,11 +49,13 @@ public class YandexAd : MonoBehaviour
     private void OnInterstitialAdError(string value)
     {
         _onEndCallback?.Invoke();
+        _audio.RemoveMute();
     }
 
     private void OnInterstitialAdOffline()
     {
         _onEndCallback?.Invoke();
+        _audio.RemoveMute();
     }
 
     private void OnVideoAdOpen()
