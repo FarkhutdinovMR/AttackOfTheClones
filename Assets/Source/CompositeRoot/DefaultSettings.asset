@@ -20,6 +20,39 @@ MonoBehaviour:
   <CharacterLevelProgress>k__BackingField: 0.1
   <CharacterStateStartLevel>k__BackingField: 1
   <CharacterAbilityInventoryCapacity>k__BackingField: 0
+  <CharacterLevelUp>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.0052048517
+      outSlope: 0.0052048517
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 606.87634
+      value: 4.1587014
+      inSlope: 0.010031765
+      outSlope: 0.010031765
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1000
+      value: 10
+      inSlope: 0.01485868
+      outSlope: 0.01485868
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   <BotHealth>k__BackingField: 10
   <RewardForBot>k__BackingField: 1
   <WaveSpawnerStartRadius>k__BackingField: 2

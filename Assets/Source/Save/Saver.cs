@@ -1,12 +1,17 @@
 using System;
-using UnityEngine;
 
-public abstract class Saver : MonoBehaviour
+public abstract partial class Saver
 {
-    [SerializeField] private Config _config;
-    [SerializeField] private Character _character;
+    private readonly Config _config;
+    private readonly Character _character;
 
-    public Data PlayerData { get; protected set; } = new Data();
+    protected Saver(Config config, Character character)
+    {
+        _config = config ?? throw new ArgumentNullException(nameof(config));
+        _character = character ?? throw new ArgumentNullException(nameof(character));
+    }
+
+    public Data PlayerData { get; protected set; }
 
     public abstract void Save();
 
@@ -25,7 +30,6 @@ public abstract class Saver : MonoBehaviour
         PlayerData = new Data()
         {
             Wallet = new Wallet(_config.CharacterStartGold),
-            CharacterLevel = new CharacterLevel(_config.CharacterStartLevel, 0, 0, _config.CharacterLevelUpCost, _config.CharacterLevelProgress),
             CharacterState = _character.States,
             Inventory = _character.Inventory,
             NextLevel = _config.FirstLevelIndex,
@@ -33,16 +37,5 @@ public abstract class Saver : MonoBehaviour
         };
 
         PlayerData.Inventory.Slots[0].Equip(PlayerData.Inventory.Abilities[0]);
-    }
-
-    [Serializable]
-    public class Data
-    {
-        public Wallet Wallet;
-        public CharacterLevel CharacterLevel;
-        public State[] CharacterState;
-        public Inventory Inventory;
-        public int NextLevel;
-        public bool IsMute;
     }
 }

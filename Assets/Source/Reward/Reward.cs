@@ -22,7 +22,7 @@ public class Reward : MonoBehaviour
     {
         if (other.TryGetComponent(out Character character))
         {
-            character.Level.AddExp(_reward);
+            character.Score.Add(_reward);
             gameObject.SetActive(false);
         }
     }

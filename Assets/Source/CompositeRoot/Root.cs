@@ -6,25 +6,25 @@ using UnityEngine;
 public class Root : MonoBehaviour, IGame
 {
     [SerializeField] private Config _config;
-    [SerializeField] private SceneLoader _sceneLoader;
     [SerializeField] private Character _character;
     [SerializeField] private Enemies _enemies;
-    [SerializeField] private Saver _saver;
     [SerializeField] private StoreUI _storeUI;
     [SerializeField] private TextView _currentLevelView;
     [SerializeField] private WinWndow _winWindow;
     [SerializeField] private FailWindow _failWindow;
     [SerializeField] private LeaderboardView _leaderboardView;
     [SerializeField] private Audio _audio;
-    [SerializeField] private Animator _startMenuAnimator;
+    [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private Language _language;
     [SerializeField] private float _waitTimeAfterLevelComplete;
 
-    private const string HideMenuAnimation = "HideMenuAnimation";
+    private SceneLoader _sceneLoader;
+    private Saver _saver;
 
     private void Awake()
     {
-        _sceneLoader.Init();
+        _sceneLoader = new SceneLoader();
+        _saver = new PlayerPrefsJSONSaver(_config, _character);
         _character.Init(this, _config, _saver.Load());
         _enemies.Init(_character, _config, _sceneLoader.CurrentSceneIndex, this);
         _storeUI.Init(new Store(_character.Inventory, _character.Wallet), _character);
@@ -68,7 +68,7 @@ public class Root : MonoBehaviour, IGame
             _character.Wallet.Add(rewardGold);
             Save();
             _winWindow.Open(rewardGold, () => _sceneLoader.LoadNext());
-            SetLeaderboardScore((int)_character.Level.Score);
+            SetLeaderboardScore((int)_character.Score.Value);
         }));
     }
 
@@ -87,13 +87,13 @@ public class Root : MonoBehaviour, IGame
     public void UpgradeCharacter()
     {
         Pause();
-        _character.AbilityUpgrade.OpenUpgradeWindow(Resume);
+        _character.UpgradeAbility(Resume);
     }
 
     private void StartGame()
     {
         _character.CreateAbilities();
-        _startMenuAnimator.Play(HideMenuAnimation);
+        _mainMenu.HideStartingMenu();
         Resume();
     }
 
@@ -142,8 +142,11 @@ public class Root : MonoBehaviour, IGame
 
     private void Save()
     {
-        _saver.PlayerData.NextLevel = _sceneLoader.NextScene;
+        _saver.PlayerData.NextLevel = _sceneLoader.NextSceneIndex;
         _saver.PlayerData.IsMute = _audio.Pause;
+        _saver.PlayerData.Level = (CharacterLevel)_character.Level;
+        _saver.PlayerData.Experience = (Experience)_character.Experience;
+        _saver.PlayerData.Score = (CharacterScore)_character.Score;
         _saver.Save();
     }
 }

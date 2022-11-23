@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class YandexSaver : Saver
 {
+    public YandexSaver(Config config, Character character) : base(config, character) { }
+
     public override void Save()
     {
         string jsonString = JsonUtility.ToJson(PlayerData);

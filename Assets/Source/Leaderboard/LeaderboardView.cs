@@ -12,6 +12,7 @@ public class LeaderboardView : MonoBehaviour
     [SerializeField] private PlayerRankingView _playerRank;
 
     public const string LeaderboardName = "Leaderboard";
+    public const string Anonymous = "Anonymous";
 
     public void Show()
     {
@@ -37,7 +38,7 @@ public class LeaderboardView : MonoBehaviour
             {
                 string name = result.player.publicName;
                 if (string.IsNullOrEmpty(name))
-                    name = "Anonymous";
+                    name = Anonymous;
 
                 _playerRank.Init(result.rank + "." + name, result.score.ToString());
                 _playerRank.Render();
@@ -55,7 +56,7 @@ public class LeaderboardView : MonoBehaviour
             {
                 string name = entry.player.publicName;
                 if (string.IsNullOrEmpty(name))
-                    name = "Anonymous";
+                    name = Anonymous;
                 PlayerRankingView newPlayerRankingView = Instantiate(_playerRankingViewTemplate, _container);
                 newPlayerRankingView.Init(entry.rank + "." + name, entry.score.ToString());
                 newPlayerRankingView.Render();

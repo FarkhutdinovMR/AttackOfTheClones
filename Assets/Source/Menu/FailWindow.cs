@@ -14,12 +14,12 @@ public class FailWindow : MonoBehaviour
         _onResurrected = onResurrectedCallback;
     }
 
-    public void OnRestartButtonClicked()
+    public void OnRestartButtonClick()
     {
         _yandexAd.ShowInterstitialAd(Close);
     }
 
-    public void OnRessurectionButtonClicked()
+    public void OnRessurectionButtonClick()
     {
         _yandexAd.ShowVideoAd(OnVideoAdRewarded);
     }

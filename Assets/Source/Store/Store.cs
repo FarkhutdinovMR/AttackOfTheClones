@@ -4,9 +4,9 @@ using System.Collections.Generic;
 public class Store : IStore
 {
     private readonly Inventory _inventory;
-    private readonly Wallet _wallet;
+    private readonly IWallet _wallet;
 
-    public Store(Inventory inventory, Wallet wallet)
+    public Store(Inventory inventory, IWallet wallet)
     {
         _inventory = inventory ?? throw new ArgumentNullException(nameof(inventory));
         _wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));

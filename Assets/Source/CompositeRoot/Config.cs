@@ -11,6 +11,7 @@ public class Config : ScriptableObject
     [field: SerializeField] public float CharacterLevelProgress { get; private set; }
     [field: SerializeField] public uint CharacterStateStartLevel { get; private set; }
     [field: SerializeField] public uint CharacterAbilityInventoryCapacity { get; private set; }
+    [field: SerializeField] public AnimationCurve CharacterLevelUp { get; private set; }
     [field: SerializeField] public int BotHealth { get; private set; }
     [field: SerializeField] public uint RewardForBot { get; private set; }
     [field: SerializeField] public uint WaveSpawnerStartRadius { get; private set; }

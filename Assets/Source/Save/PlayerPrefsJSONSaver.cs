@@ -1,8 +1,11 @@
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerPrefsJSONSaver : Saver
 {
     private const string SaveKey = nameof(SaveKey);
+
+    public PlayerPrefsJSONSaver(Config config, Character character) : base(config, character) { }
 
     public override void Save()
     {
@@ -20,8 +23,8 @@ public class PlayerPrefsJSONSaver : Saver
         return true;
     }
 
-    [ContextMenu("Remove all save data")]
-    public void RemoveAllSaveData()
+    [MenuItem("PlayerPrefs/DeleteAll")]
+    public static void RemoveAllSaveData()
     {
         PlayerPrefs.DeleteAll();
     }
