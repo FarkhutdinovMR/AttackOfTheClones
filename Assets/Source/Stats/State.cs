@@ -38,5 +38,6 @@ public enum StateType
 {
     Damage,
     Radius,
-    Interval
+    Interval,
+    Health
 }

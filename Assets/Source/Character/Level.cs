@@ -4,16 +4,18 @@ using UnityEngine;
 [Serializable]
 public class Level : ILevel
 {
-    private readonly uint _maxValue;
-
     public Level(uint startValue, uint maxValue)
     {
-        _maxValue = maxValue;
+        if (startValue > maxValue)
+            throw new ArgumentOutOfRangeException(nameof(startValue));
+
+        MaxValue = maxValue;
         Value = startValue;
     }
 
     [field: SerializeField] public uint Value { get; private set; }
-    public bool CanLevelUp => Value + 1 <= _maxValue;
+    [field: SerializeField] public uint MaxValue { get; private set; }
+    public bool CanLevelUp => Value + 1 <= MaxValue;
 
     public virtual void LevelUp()
     {

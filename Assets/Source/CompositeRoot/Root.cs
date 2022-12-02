@@ -1,4 +1,5 @@
 using Agava.YandexGames;
+using GameAnalyticsSDK;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -12,7 +13,6 @@ public class Root : MonoBehaviour, IGame
     [SerializeField] private TextView _currentLevelView;
     [SerializeField] private WinWndow _winWindow;
     [SerializeField] private FailWindow _failWindow;
-    [SerializeField] private LeaderboardView _leaderboardView;
     [SerializeField] private Audio _audio;
     [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private Language _language;
@@ -29,17 +29,11 @@ public class Root : MonoBehaviour, IGame
         _enemies.Init(_character, _config, _sceneLoader.CurrentSceneIndex, this);
         _storeUI.Init(new Store(_character.Inventory, _character.Wallet), _character);
         _audio.Init(Convert.ToUInt32(_saver.PlayerData.IsMute));
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-        StartCoroutine(WaitSDKInitialize(()=>
-        {
-            _language.Set(YandexGamesSdk.Environment.i18n.lang);
-            _leaderboardView.Show();
-        }));
-#endif
-
         Pause();
         StartCoroutine(WaitMoveInput(StartGame));
+#if !YANDEX_GAMES
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "level_start", _sceneLoader.CurrentSceneIndex);
+#endif
     }
 
     private void Start()
@@ -69,6 +63,9 @@ public class Root : MonoBehaviour, IGame
             Save();
             _winWindow.Open(rewardGold, () => _sceneLoader.LoadNext());
             SetLeaderboardScore((int)_character.Score.Value);
+#if !YANDEX_GAMES
+            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "level_complete", _sceneLoader.CurrentSceneIndex);
+#endif
         }));
     }
 
@@ -78,9 +75,19 @@ public class Root : MonoBehaviour, IGame
         _failWindow.Open((resurrected) => 
         {
             if (resurrected)
+            {
                 Resume();
+#if !YANDEX_GAMES
+                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, "fail", _sceneLoader.CurrentSceneIndex);
+#endif
+            }
             else
+            {
                 _sceneLoader.Restart();
+#if !YANDEX_GAMES
+                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "restart", _sceneLoader.CurrentSceneIndex);
+#endif
+            }
         });
     }
 
@@ -110,20 +117,6 @@ public class Root : MonoBehaviour, IGame
         }
     }
 
-    private IEnumerator WaitSDKInitialize(Action onSDKInitilized)
-    {
-        while (true)
-        {
-            if (YandexGamesSdk.IsInitialized)
-            {
-                onSDKInitilized();
-                yield break;
-            }
-
-            yield return new WaitForSecondsRealtime(1);
-        }
-    }
-
     private IEnumerator Wait(Action onEndCallback)
     {
         yield return new WaitForSecondsRealtime(_waitTimeAfterLevelComplete);
@@ -132,7 +125,7 @@ public class Root : MonoBehaviour, IGame
 
     private void SetLeaderboardScore(int value)
     {
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL && !UNITY_EDITOR && YANDEX_GAMES
         if (YandexGamesSdk.IsInitialized == false)
             return;
             

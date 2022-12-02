@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerPrefsJSONSaver : Saver
@@ -21,11 +20,5 @@ public class PlayerPrefsJSONSaver : Saver
         string jsonString = PlayerPrefs.GetString(SaveKey);
         PlayerData = JsonUtility.FromJson<Data>(jsonString);
         return true;
-    }
-
-    [MenuItem("PlayerPrefs/DeleteAll")]
-    public static void RemoveAllSaveData()
-    {
-        PlayerPrefs.DeleteAll();
     }
 }

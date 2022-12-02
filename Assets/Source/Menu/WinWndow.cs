@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WinWndow : MonoBehaviour
 {
-    [SerializeField] private YandexAd _yandexAd;
+    [SerializeField] private Ad _adSDK;
     [SerializeField] private TextView _goldView;
 
     private Action _onClose;
@@ -17,7 +17,7 @@ public class WinWndow : MonoBehaviour
 
     public void OnNextLevelButtonClicked()
     {
-        _yandexAd.ShowInterstitialAd(Close);
+        _adSDK.ShowInterstitialAd(Close);
     }
 
     private void Close()

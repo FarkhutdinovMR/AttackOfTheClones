@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FailWindow : MonoBehaviour
 {
-    [SerializeField] private YandexAd _yandexAd;
+    [SerializeField] private Ad _yandexAd;
     [SerializeField] private Character _character;
 
     private Action<bool> _onResurrected;
